@@ -15,7 +15,6 @@ protected:
   void OnKeyDown( uint8_t mod, uint8_t key );
   void OnKeyUp( uint8_t mod, uint8_t key );
 private:
-  bool mCapsLock;
   bool mReset;
 };
 extern KbdRptParser KbdPrs;

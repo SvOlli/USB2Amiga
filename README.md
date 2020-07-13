@@ -25,10 +25,10 @@ approach is intended (but not yet implemented.)
 
 
 System | Keyboard   | Mouse    | Joystick | Note
--------|------------|----------|----------|--------------------------------
+-------|------------|----------|----------|---------------------------------
 CDTV   | working    | working  | untested | primay development target
 CD32   | untested   | planning | planning | soon to come
-A500   | untested   | planning | planning | keyboard will require soldering
+A500   | untested   | planning | planning | reset handling different
 A600   | won't work | planning | planning | different keyboard handling
 A1000  | untested   | planning | planning | no system available for testing
 A1200  | won't work | planning | planning | different keyboard handling

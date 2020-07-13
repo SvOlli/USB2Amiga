@@ -7,6 +7,7 @@
 #define USE_AMIGA_KEYBOARD (1)
 #define USE_CDTV_MOUSE_JOY (1)
 #define USE_AMIGA_MOUSE    (0)
+#define USE_A500_RESET     (0)
 
 #define DEBUG   (0)
 

@@ -29,7 +29,6 @@ static inline void amigakey( uint8_t code, bool pressed )
 
 KbdRptParser::KbdRptParser()
 : KeyboardReportParser()
-, mCapsLock( false )
 , mReset( false )
 {
 }
@@ -98,7 +97,7 @@ void KbdRptParser::OnControlKeysChanged(uint8_t before, uint8_t after)
   {
     mReset = false;
 #if DEBUG
-  Serial.println( "Sending hard reset" );
+    Serial.println( "Sending hard reset" );
 #endif
     amikbd_kReset();
   }
@@ -133,11 +132,14 @@ void KbdRptParser::OnKeyDown(uint8_t mod, uint8_t key)
   PrintHex<uint8_t>( mod, 0x80 );
   Serial.println( "" );
 #endif
-  if( key == 0x39 )
+  if( key == UHS_HID_BOOT_KEY_CAPS_LOCK )
   {
     /* CAPS LOCK */
-    mCapsLock = !mCapsLock;
-    if( !mCapsLock )
+#if DEBUG
+    Serial.print( "CAPS LOCK: " );
+    Serial.println( kbdLockingKeys.kbdLeds.bmCapsLock );
+#endif
+    if( !kbdLockingKeys.kbdLeds.bmCapsLock )
     {
       return;
     }
@@ -166,10 +168,10 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
   PrintHex<uint8_t>( mod, 0x80 );
   Serial.println( "" );
 #endif
-  if( key == 0x39 )
+  if( key == UHS_HID_BOOT_KEY_CAPS_LOCK )
   {
     /* CAPS LOCK */
-    if( mCapsLock )
+    if( kbdLockingKeys.kbdLeds.bmCapsLock )
     {
       return;
     }

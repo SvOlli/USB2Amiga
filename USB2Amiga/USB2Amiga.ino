@@ -18,7 +18,7 @@
 #include "USB_Keyboard.hpp"
 
 USB    Usb;
-USBHub Hub(&Usb);
+//USBHub Hub(&Usb);
 
 HIDBoot<USB_HID_PROTOCOL_KEYBOARD | USB_HID_PROTOCOL_MOUSE> HidComposite(&Usb);
 HIDBoot<USB_HID_PROTOCOL_KEYBOARD>                          HidKeyboard(&Usb);

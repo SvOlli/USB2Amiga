@@ -26,8 +26,6 @@ extern "C" {
  * PgUp -> KP ([
  * PgDn -> KP )]
  * Num Lock
- * 
- * Amiga-Amiga-Ctrl keycode?
  */
 
 uint8_t usb2amiga[0x80] = 
