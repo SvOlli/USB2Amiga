@@ -43,7 +43,7 @@ extern "C" {
 void cdtv_init();
 void cdtv_main();
 
-uint8_t mouse_set_state(uint8_t buttons, int8_t x, int8_t y);
+void mouse_set_state(uint8_t buttons, int8_t x, int8_t y);
 
 #ifdef __cplusplus
 }

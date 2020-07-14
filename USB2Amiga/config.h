@@ -9,7 +9,9 @@
 #define USE_AMIGA_MOUSE    (0)
 #define USE_A500_RESET     (0)
 
+#ifndef DEBUG
 #define DEBUG   (0)
+#endif
 
 // INT1 on PIN3 (DATAPIN) for ACK, that is DATAPIN needs to be pin 3
 #define DATAPIN (3)

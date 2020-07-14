@@ -42,9 +42,15 @@ FAQ
 ---
 Can I use it with an USB hub?
 
-No, sorry. The Arduino libraries, that this project builds upon, don't support
-this. So can't I. A workaround would be to build two USB2Amiga, using one for
-keyboard and one for mouse.
+No, sorry. To keep the code simple, this seldom used feature is not implmented.
+The example code for USB keyboard and mouse from the library does not support
+this either, even though the code looks like it might. A workaround would be to
+build two USB2Amiga, using one for keyboard and one for mouse.
+
+
+Building
+--------
+- [CDTV](Build_CDTV.md)
 
 
 Acknowledgements

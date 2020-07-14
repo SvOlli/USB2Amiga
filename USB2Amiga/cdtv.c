@@ -62,7 +62,6 @@
 
 #define BUFSIZE 16
 static volatile int8_t head=0, tail=0;
-static uint16_t irbuf[BUFSIZE];
 
 #if   F_CPU >= 24000000L
 #error 24MHz not defined
@@ -118,7 +117,7 @@ uint16_t joystick_get_state(){
 
 static volatile int16_t mouse_x=0, mouse_y=0;
 static volatile uint8_t mouse_buttons=0;
-uint8_t mouse_set_state(uint8_t buttons, int8_t x, int8_t y) {
+void mouse_set_state(uint8_t buttons, int8_t x, int8_t y) {
   noInterrupts();
 #if USE_CDTV_MOUSE_JOY
   if( x == -1 )
