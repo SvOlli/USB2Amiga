@@ -18,9 +18,11 @@ on CDTV side. The pins 2, 3 and 6 match the layout of the typical 4-bit
 level shifters, where the pins in the center are used for GND and refence
 voltage.
 
-Also connect +5V from both ports to RAW on the Arduino Pro Mini and HV on
-the level shifter. LV of the level shifter is connected to 3.3V (VCC) on
-the Arduino.
+Also connect +5V from only one of the ports to RAW on the Arduino Pro Mini
+and HV on the level shifter. The +5V from the 5-pin connector (labeled "K/B")
+is switched off when the unit goes to standby, the +5 from the 4-pin connector
+(labeled "Remote") is always on. So don't short these two. LV of the level
+shifter is connected to 3.3V (VCC) on the Arduino.
 
 GND should be connected to both CDTV ports, GND on both sides of the level
 shifter and GND on the Arduino. This way the converter works also when only
