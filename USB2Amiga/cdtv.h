@@ -44,6 +44,8 @@ void cdtv_init();
 void cdtv_main();
 
 void mouse_set_state(uint8_t buttons, int8_t x, int8_t y);
+/* this overrides any code, repeats until code=0 */
+void set_cdtv_code( uint16_t code );
 
 #ifdef __cplusplus
 }

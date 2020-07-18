@@ -47,6 +47,12 @@ The example code for USB keyboard and mouse from the library does not support
 this either, even though the code looks like it might. A workaround would be to
 build two USB2Amiga, using one for keyboard and one for mouse.
 
+Why don't the LEDs (CAPS LOCK, etc.) work?
+
+I don't know. They don't work with example code "USBHIDBootKbdAndMouse" either,
+on which this USB code is based on. My guess it's a bug in the USB Host Shield
+library, or maybe it's my cheap USB host shield clone.
+
 
 Building
 --------

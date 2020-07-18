@@ -57,6 +57,7 @@
 #include "Arduino.h"
 #include "cdtv.h"
 #include "config.h"
+#include <stdbool.h>
 
 #if USE_CDTV_MOUSE_JOY
 
@@ -78,7 +79,11 @@ static volatile int8_t head=0, tail=0;
 #error 1MHz not defined
 #endif
 
+static uint16_t cdtv_code;
+
 void cdtv_init(){
+
+  cdtv_code = 0;
 
   // init datapin
   weak_pullup(PRDTPIN);
@@ -103,6 +108,11 @@ void cdtv_init(){
   //  TCCR1B |= (1 << CS11); // 8 prescaler (but start disabled)
   TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt
 
+}
+
+void set_cdtv_code( uint16_t code )
+{
+  cdtv_code = code;
 }
 
 // Joystick interrupt
@@ -186,16 +196,20 @@ enum transmitstates {
 };
 
 ISR(TIMER1_COMPA_vect) {
-  static uint16_t joy_state=0;
+  static uint16_t last_state=0;
   static uint8_t tx_state=0;
   static uint32_t mouse=0;
 
   if(tx_state == tx_idle){
-    uint16_t new_joy_state = joystick_get_state();
-    
-    if(new_joy_state || joy_state){
-      tx_state = (new_joy_state == joy_state) ? ir_repeat : ir_start;
-      joy_state = new_joy_state;
+    uint16_t new_state = joystick_get_state();
+    if( cdtv_code > 0 )
+    {
+      new_state = cdtv_code;
+    }
+
+    if(new_state || last_state){
+      tx_state = (new_state == last_state) ? ir_repeat : ir_start;
+      last_state = new_state;
       pull_down(PRDTPIN);
       OCR1A = TIMER_US(9000); // 9ms start pulse
       TCNT1 = 0;
@@ -226,9 +240,9 @@ ISR(TIMER1_COMPA_vect) {
         }
         ss = 11 - ss;
         if(tx_state > ir_transmit + 24){
-          OCR1A = (joy_state >> ss & 0x1) ? TIMER_US(400) : TIMER_US(1200);
+          OCR1A = (last_state >> ss & 0x1) ? TIMER_US(400) : TIMER_US(1200);
         } else {
-          OCR1A = (joy_state >> ss & 0x1) ? TIMER_US(1200) : TIMER_US(400);
+          OCR1A = (last_state >> ss & 0x1) ? TIMER_US(1200) : TIMER_US(400);
         }
       }
       tx_state++;

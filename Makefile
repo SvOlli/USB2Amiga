@@ -4,6 +4,8 @@ export BUILD_BASE = $(HOME)/tmp
 RM = rm -rf
 CP = cp -v
 
+.PHONY: $(USB2AMIGA_VARIANTS)
+
 all: $(USB2AMIGA_VARIANTS)
 
 clean:

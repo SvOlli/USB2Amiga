@@ -4,6 +4,7 @@
 
 #include "keycodes_amiga.h"
 #include "amiga_keyb.h"
+#include "cdtv.h"
 
 static inline void amigakey( uint8_t code, bool pressed )
 {
@@ -33,7 +34,7 @@ KbdRptParser::KbdRptParser()
 {
 }
 
-void KbdRptParser::OnControlKeysChanged(uint8_t before, uint8_t after)
+void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after)
 {
 #if DEBUG
   MODIFIERKEYS beforeMod;
@@ -157,6 +158,10 @@ void KbdRptParser::OnKeyDown(uint8_t mod, uint8_t key)
     Serial.println( "Sending reset warning" );
 #endif
   }
+  if( key == 0x46 ) /* SysRq */
+  {
+    set_cdtv_code( CDTV_CODE_POWER );
+  }
 }
 
 void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
@@ -184,5 +189,9 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
   Serial.println( "Sending hard reset" );
 #endif
     amikbd_kReset();
+  }
+  if( key == 0x46 ) /* SysRq */
+  {
+    set_cdtv_code( 0 );
   }
 }

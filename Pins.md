@@ -1,10 +1,12 @@
-Pins
-====
+Arduino Pro Mini Pins Usage
+===========================
+
+Note: pins 18-21 (A4-A7) are not on the sides, but inside of the board.
 
 Pin | Function | Amiga
-----|----------|------------------------------
+----|----------|-------------------------------------------
   0 | PD0/TX   | serial interface for debug *
-  1 | PD1/RX   | serial interface for debug *
+  1 | PD1/RX   | serial interface for debug * / A500 reset
   2 | PD2/INT0 | KBCLK *
   3 | PD3/INT1 | KBDAT *
   4 | PD4      | mouse DB9
@@ -27,4 +29,6 @@ Pin | Function | Amiga
  21 | ADC7/A7  | 
 
 * = currently implemented
+
+All other pins are just development considerations and might change.
 
