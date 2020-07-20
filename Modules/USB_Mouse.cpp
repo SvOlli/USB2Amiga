@@ -1,15 +1,14 @@
+/*
+ * written by SvOlli after reading the 
+ * Arduino USB Host Shield library 2.0 example code USBHIDBootKbdAndMouse
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
 
 #include "USB_Mouse.hpp"
-#include "config.h"
+#include "gpio.h"
 
-/* sanity check */
-#if USE_CDTV_MOUSE_JOY && USE_AMIGA_MOUSE
-#error Only one of USE_CDTV_MOUSE_JOY and USE_AMIGA_MOUSE may be used
-#endif
-
-#if USE_CDTV_MOUSE_JOY
-#include "cdtv.h"
-#endif
+#include "amiga_api.h"
 
 MouseRptParser::MouseRptParser()
 : MouseReportParser()
@@ -29,9 +28,7 @@ void MouseRptParser::flush()
     Serial.println( buffer );
   }
 #endif
-#if USE_CDTV_MOUSE_JOY
-  mouse_set_state( mButtons, mDx, mDy );
-#endif
+  amiga_mouse_update( mButtons, mDx, mDy );
   mDx = 0;
   mDy = 0;
 }

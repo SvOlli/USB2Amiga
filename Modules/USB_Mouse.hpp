@@ -1,3 +1,9 @@
+/*
+ * written by SvOlli after reading the 
+ * Arduino USB Host Shield library 2.0 example code USBHIDBootKbdAndMouse
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
 
 #ifndef __USB_MOUSE_HPP__
 #define __USB_MOUSE_HPP__ __USB_MOUSE_HPP__

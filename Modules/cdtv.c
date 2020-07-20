@@ -1,4 +1,12 @@
 /*
+ * Taken from https://github.com/matsstaff/mwd2cdtv
+ * written by matsstaff
+ * modified by SvOlli
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
+
+/*
  
  Uses: 
  Timer1 (OCR1A) to generate CDTV serial protocol.
@@ -56,13 +64,11 @@
 
 #include "Arduino.h"
 #include "cdtv.h"
-#include "config.h"
+#include "gpio.h"
 #include <stdbool.h>
 
-#if USE_CDTV_MOUSE_JOY
-
 #define BUFSIZE 16
-static volatile int8_t head=0, tail=0;
+static volatile int8_t head = 0, tail = 0;
 
 #if   F_CPU >= 24000000L
 #error 24MHz not defined
@@ -80,13 +86,17 @@ static volatile int8_t head=0, tail=0;
 #endif
 
 static uint16_t cdtv_code;
+static volatile int16_t mouse_x = 0, mouse_y = 0;
+static volatile uint8_t mouse_buttons = 0;
 
-void cdtv_init(){
+#define PIN_CDTV_PRDT (6)
 
+void cdtv_init()
+{
   cdtv_code = 0;
-
+  
   // init datapin
-  weak_pullup(PRDTPIN);
+  weak_pullup( PIN_CDTV_PRDT );
 
   // init joystick
   weak_pullup(A0); // right
@@ -107,7 +117,6 @@ void cdtv_init(){
   TCCR1B |= (1 << WGM12); // CTC mode
   //  TCCR1B |= (1 << CS11); // 8 prescaler (but start disabled)
   TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt
-
 }
 
 void set_cdtv_code( uint16_t code )
@@ -120,16 +129,16 @@ ISR(PCINT1_vect) {
   TCCR1B |= (1 << CS11); // Make sure timer is enabled
 }
 
-uint16_t joystick_get_state(){
+uint16_t joystick_get_state()
+{
   uint8_t joy_s = (~PINC & 0x3F);
   return joy_s ? (0x800UL | (joy_s<<2)) : 0;
 }
 
-static volatile int16_t mouse_x=0, mouse_y=0;
-static volatile uint8_t mouse_buttons=0;
-void mouse_set_state(uint8_t buttons, int8_t x, int8_t y) {
+void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y )
+{
   noInterrupts();
-#if USE_CDTV_MOUSE_JOY
+
   if( x == -1 )
   {
     --mouse_x;
@@ -142,6 +151,7 @@ void mouse_set_state(uint8_t buttons, int8_t x, int8_t y) {
   {
     mouse_x = mouse_x + (x/2);
   }
+
   if( y == -1 )
   {
     --mouse_y;
@@ -154,17 +164,15 @@ void mouse_set_state(uint8_t buttons, int8_t x, int8_t y) {
   {
     mouse_y = mouse_y + (y/2);
   }
-#else
-  mouse_x = mouse_x - (mouse_x >> 1) + x; // Leaky integration
-  mouse_y = mouse_y - (mouse_y >> 1) + y;
-#endif
+
   mouse_buttons |= buttons;
   interrupts();
   TCCR1B |= (1 << CS11); // Make sure timer is enabled
 }
 
 /* Called from timer interrupt */
-uint8_t mouse_get_state(uint32_t *ms) {
+uint8_t mouse_get_state( uint32_t *ms )
+{
   uint8_t mx = -mouse_x; //invert
   uint8_t my = -mouse_y;
   uint8_t rv = mouse_buttons || mx || my;
@@ -172,18 +180,18 @@ uint8_t mouse_get_state(uint32_t *ms) {
   *ms = (((uint32_t)(mouse_buttons ^ 0x7)) << 16) | ((uint16_t)mx) << 8 | my;
 
   // Reset mouse state
-  mouse_x=0;
-  mouse_y=0;
-  mouse_buttons=0;
+  mouse_x = 0;
+  mouse_y = 0;
+  mouse_buttons = 0;
 
   return rv; 
 }
 
 enum transmitstates {
-  tx_idle=0,
+  tx_idle = 0,
   ir_start,
   ir_transmit,                  // 2
-  ir_end_pulse=ir_transmit+48,  // 50
+  ir_end_pulse = ir_transmit + 48,  // 50
   ir_stop,
   ir_repeat,
   ir_repeat_end_pulse,
@@ -191,7 +199,7 @@ enum transmitstates {
   ir_repeat_stop2,
   m_start,                      // 56
   m_transmit,                   // 57
-  m_stop=m_transmit+38,
+  m_stop = m_transmit + 38,
   m_stop2
 };
 
@@ -200,108 +208,141 @@ ISR(TIMER1_COMPA_vect) {
   static uint8_t tx_state=0;
   static uint32_t mouse=0;
 
-  if(tx_state == tx_idle){
+  if( tx_state == tx_idle )
+  {
     uint16_t new_state = joystick_get_state();
     if( cdtv_code > 0 )
     {
       new_state = cdtv_code;
     }
 
-    if(new_state || last_state){
+    if( new_state || last_state )
+    {
       tx_state = (new_state == last_state) ? ir_repeat : ir_start;
       last_state = new_state;
-      pull_down(PRDTPIN);
+      pull_down( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(9000); // 9ms start pulse
       TCNT1 = 0;
-    } else if(mouse_get_state(&mouse)) {
+    }
+    else if( mouse_get_state(&mouse) )
+    {
       tx_state = m_start;
-      pull_down(PRDTPIN);
+      pull_down( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(1100); // 1.1ms start pulse
       TCNT1 = 0;
-    } else {
+    }
+    else
+    {
       TCCR1B &= ~(1 << CS11); // disable timer
     }
-  } else if(tx_state < m_start) { // PAD
-    if(tx_state == ir_start){
-      weak_pullup(PRDTPIN);
+  } 
+  else if( tx_state < m_start ) // PAD
+  {
+    if( tx_state == ir_start )
+    {
+      weak_pullup( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(4500); // 4.5ms pause
       tx_state++;
     } 
-    else if(tx_state<ir_end_pulse){
+    else if( tx_state<ir_end_pulse )
+    {
       uint8_t ss = tx_state - ir_transmit;
-      if((ss & 0x1) == 0){ // Pulse
-        pull_down(PRDTPIN);
+      if( (ss & 0x1) == 0 ) // Pulse
+      {
+        pull_down( PIN_CDTV_PRDT );
         OCR1A = TIMER_US(400);
-      } else { // Pause
-        weak_pullup(PRDTPIN);
+      }
+      else // Pause
+      {
+        weak_pullup( PIN_CDTV_PRDT );
         ss = ss >> 1;
-        if(ss >= 12){
+        if( ss >= 12 )
+        {
           ss -= 12;
         }
         ss = 11 - ss;
-        if(tx_state > ir_transmit + 24){
+        if( tx_state > ir_transmit + 24 )
+        {
           OCR1A = (last_state >> ss & 0x1) ? TIMER_US(400) : TIMER_US(1200);
-        } else {
+        }
+        else
+        {
           OCR1A = (last_state >> ss & 0x1) ? TIMER_US(1200) : TIMER_US(400);
         }
       }
       tx_state++;
     } 
-    else if(tx_state==ir_end_pulse){
-      pull_down(PRDTPIN);
+    else if( tx_state == ir_end_pulse )
+    {
+      pull_down( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(400);
       tx_state++;
     } 
-    else if(tx_state==ir_stop){
-      weak_pullup(PRDTPIN);
+    else if( tx_state == ir_stop )
+    {
+      weak_pullup( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(17300); // Allow some space
       tx_state = tx_idle;
     } 
-    else if(tx_state==ir_repeat){
-      weak_pullup(PRDTPIN);
+    else if( tx_state == ir_repeat )
+    {
+      weak_pullup( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(2100); // pause
       tx_state++;
     }
-    else if(tx_state==ir_repeat_end_pulse){
-      pull_down(PRDTPIN);
+    else if( tx_state == ir_repeat_end_pulse )
+    {
+      pull_down( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(400);
       tx_state++;
     } 
-    else if(tx_state==ir_repeat_stop){
-      weak_pullup(PRDTPIN);
+    else if( tx_state == ir_repeat_stop )
+    {
+      weak_pullup( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(24250); // Allow some space
       tx_state++;
     } 
-    else if(tx_state==ir_repeat_stop2){
+    else if( tx_state == ir_repeat_stop2 )
+    {
       OCR1A = TIMER_US(24250); // Allow some space
       tx_state = tx_idle;
     }
-  } else { // MOUSE
-    if(tx_state == m_start){
-      weak_pullup(PRDTPIN);
+  } 
+  else // MOUSE
+  {
+    if( tx_state == m_start )
+    {
+      weak_pullup( PIN_CDTV_PRDT );
       OCR1A = TIMER_US(375); // 375us pause
       tx_state++;
-    } else if(tx_state < m_stop) {
+    }
+    else if( tx_state < m_stop )
+    {
       uint8_t ss = tx_state - m_transmit; // ss goes from 0 to 37
       uint8_t bitv = (mouse >> (18 - (ss >> 1))) & 0x1;
-      if((ss & 0x1) == 0){ // Pulse
-        pull_down(PRDTPIN);
+      if( (ss & 0x1) == 0 ) // Pulse
+      {
+        pull_down( PIN_CDTV_PRDT );
         OCR1A = bitv ? TIMER_US(500) : TIMER_US(138);
-      } else { // pause
-        weak_pullup(PRDTPIN);
+      }
+      else // pause
+      {
+        weak_pullup( PIN_CDTV_PRDT );
         OCR1A = bitv ? TIMER_US(375) : TIMER_US(735);
       }
       tx_state++;
-    } else if(tx_state == m_stop){
-        pull_down(PRDTPIN);
-        OCR1A = TIMER_US(88); // 88us stop pulse
-        tx_state++;
-    } else { // m_stop2
-        weak_pullup(PRDTPIN);
-        OCR1A = TIMER_US(14000);        // 14ms pause
-        tx_state = tx_idle;
+    }
+    else if( tx_state == m_stop )
+    {
+      pull_down( PIN_CDTV_PRDT );
+      OCR1A = TIMER_US(88); // 88us stop pulse
+      tx_state++;
+    }
+    else // m_stop2
+    {
+      weak_pullup( PIN_CDTV_PRDT );
+      OCR1A = TIMER_US(14000);        // 14ms pause
+      tx_state = tx_idle;
     }
   }
 }
-
-#endif

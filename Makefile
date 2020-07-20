@@ -1,8 +1,9 @@
 USB2AMIGA_VARIANTS = CDTV
-export BUILD_BASE = $(HOME)/tmp
+BUILD_BASE      := $(abspath $(lastword $(MAKEFILE_LIST))/..)/tmp
 
 RM = rm -rf
 CP = cp -v
+LS = ls -l
 
 .PHONY: $(USB2AMIGA_VARIANTS)
 
@@ -22,5 +23,6 @@ release:
 	git add hex/
 
 CDTV:
-	$(MAKE) -C USB2Amiga -f ../mk/CDTV.mk all
+	$(MAKE) -C $@ -f ../arduino.mk all
+	$(LS) $(BUILD_BASE)/$@/*.hex
 

@@ -1,5 +1,13 @@
-#ifndef _CDTV_
-#define _CDTV_
+/*
+ * Taken from https://github.com/matsstaff/mwd2cdtv
+ * written by matsstaff
+ * modified by SvOlli
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
+
+#ifndef __CDTV_H__
+#define __CDTV_H__ __CDTV_H__
 
 // CDTV CODES
 #define CDTV_CODE_1              0x001
@@ -40,10 +48,12 @@
 extern "C" {
 #endif
 
+#include "amiga_api.h"
+
 void cdtv_init();
 void cdtv_main();
 
-void mouse_set_state(uint8_t buttons, int8_t x, int8_t y);
+void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y );
 /* this overrides any code, repeats until code=0 */
 void set_cdtv_code( uint16_t code );
 

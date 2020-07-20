@@ -1,17 +1,23 @@
 /*
- * USB to Amiga Keyboard Mouse Joystick converter
- * ==============================================
+ * USB to CDTV Keyboard Mouse Joystick converter
+ * =============================================
  * 
  * Hacked together by SvOlli with ideas/code from
  * matsstaff, who used code by hkzlab
- * cssvb94
  * 
  * Distributed unter the terms of the GPLv3 or any later version
  */ 
 
+/* configuration start */
+
+#ifndef DEBUG
+#define DEBUG   (0)
+#endif
+
+#include "gpio.h"
+
 #include <Arduino.h>
 #include <stdint.h>
-#include "config.h"
 #include "cdtv.h"
 #include "amiga_keyb.h"
 #include "USB_Mouse.hpp"
@@ -27,6 +33,34 @@ HIDBoot<USB_HID_PROTOCOL_MOUSE>                             HidMouse(&Usb);
 KbdRptParser   KbdPrs;
 MouseRptParser MousePrs;
 
+class KbdRptParserCDTV : public KeyRptParserCallback
+{
+public:
+  bool handle( uint8_t mod, uint8_t key, bool press );
+};
+
+
+bool KbdRptParserCDTV::handle( uint8_t mod, uint8_t key, bool press )
+{
+#if DEBUG
+Serial.print( "KbdRptParserCDTV::handle: key=" );
+PrintHex<uint8_t>( key, 0x80 );
+Serial.print( " mod=" );
+PrintHex<uint8_t>( mod, 0x80 );
+Serial.println( press ? " press" : " release" );
+#endif
+  if( (mod == 0) && (key == 0x46) )
+  {
+#if DEBUG
+Serial.println( "Action" );
+#endif
+    set_cdtv_code( press ? CDTV_CODE_POWER : 0 );
+    return true;
+  }
+  return false;
+}
+KbdRptParserCDTV KbdPrsCDTV;
+
 
 void setup()
 {
@@ -36,9 +70,10 @@ void setup()
   {
     /* wait */
   }
-  Serial.println( "\r\nAmiga Keyboard " USB2AMIGA_VERSION " starting" );
+  Serial.println( "\r\nAmiga Keyboard starting" );
   Serial.println( "Compiled: " __DATE__ " " __TIME__ );
 #endif
+  KbdPrs.setCallback( &KbdPrsCDTV );
   cdtv_init();
   amikbd_setup();
 

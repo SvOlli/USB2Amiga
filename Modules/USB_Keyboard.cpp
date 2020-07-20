@@ -1,10 +1,16 @@
+/*
+ * written by SvOlli after reading the 
+ * Arduino USB Host Shield library 2.0 example code USBHIDBootKbdAndMouse
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
 
 #include "USB_Keyboard.hpp"
-#include "config.h"
+#include "gpio.h"
 
 #include "keycodes_amiga.h"
-#include "amiga_keyb.h"
-#include "cdtv.h"
+#include "amiga_api.h"
+
 
 static inline void amigakey( uint8_t code, bool pressed )
 {
@@ -24,17 +30,19 @@ static inline void amigakey( uint8_t code, bool pressed )
   PrintHex<uint8_t>( code, 0x80 );
   Serial.println();
 #endif
-  amikbd_kSendCommand( code | (pressed ? 0x00 : 0x80) );
+  amiga_keyboard_send( code | (pressed ? 0x00 : 0x80) );
 }
 
 
 KbdRptParser::KbdRptParser()
 : KeyboardReportParser()
 , mReset( false )
+, mpCallback( 0 )
 {
 }
 
-void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after)
+
+void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after )
 {
 #if DEBUG
   MODIFIERKEYS beforeMod;
@@ -100,7 +108,7 @@ void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after)
 #if DEBUG
     Serial.println( "Sending hard reset" );
 #endif
-    amikbd_kReset();
+    amiga_keyboard_reset();
   }
 
   if( (after == 0x89) || (after == 0x98) )
@@ -124,7 +132,7 @@ void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after)
 }
 
 
-void KbdRptParser::OnKeyDown(uint8_t mod, uint8_t key)
+void KbdRptParser::OnKeyDown( uint8_t mod, uint8_t key )
 {
 #if DEBUG
   Serial.print( "DOWN key=" );
@@ -133,6 +141,15 @@ void KbdRptParser::OnKeyDown(uint8_t mod, uint8_t key)
   PrintHex<uint8_t>( mod, 0x80 );
   Serial.println( "" );
 #endif
+
+  if( mpCallback )
+  {
+    if( mpCallback->handle( mod, key, true ) )
+    {
+      return;
+    }
+  }
+
   if( key == UHS_HID_BOOT_KEY_CAPS_LOCK )
   {
     /* CAPS LOCK */
@@ -158,13 +175,10 @@ void KbdRptParser::OnKeyDown(uint8_t mod, uint8_t key)
     Serial.println( "Sending reset warning" );
 #endif
   }
-  if( key == 0x46 ) /* SysRq */
-  {
-    set_cdtv_code( CDTV_CODE_POWER );
-  }
 }
 
-void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
+
+void KbdRptParser::OnKeyUp( uint8_t mod, uint8_t key )
 {
 #if DEBUG
   Serial.print( "UP   key=" );
@@ -173,6 +187,15 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
   PrintHex<uint8_t>( mod, 0x80 );
   Serial.println( "" );
 #endif
+  
+  if( mpCallback )
+  {
+    if( mpCallback->handle( mod, key, false ) )
+    {
+      return;
+    }
+  }
+  
   if( key == UHS_HID_BOOT_KEY_CAPS_LOCK )
   {
     /* CAPS LOCK */
@@ -188,10 +211,6 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
 #if DEBUG
   Serial.println( "Sending hard reset" );
 #endif
-    amikbd_kReset();
-  }
-  if( key == 0x46 ) /* SysRq */
-  {
-    set_cdtv_code( 0 );
+    amiga_keyboard_reset();
   }
 }

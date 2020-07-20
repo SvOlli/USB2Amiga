@@ -53,6 +53,12 @@ I don't know. They don't work with example code "USBHIDBootKbdAndMouse" either,
 on which this USB code is based on. My guess it's a bug in the USB Host Shield
 library, or maybe it's my cheap USB host shield clone.
 
+Can I send any CDTV specific codes via keyboard?
+
+This is possible also only one keystroke is implemented: the power button. This
+way you can turn the machine one, if it is powered by the 4-pin mini DIN
+connector. Others can be implemented as well, just ask.
+
 
 Building
 --------

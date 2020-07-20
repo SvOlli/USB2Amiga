@@ -1,3 +1,9 @@
+/*
+ * written by SvOlli
+ * after reading the Amiga Hardware Reference Manual
+ *
+ * distributed unter the terms of the GPLv3 or later
+ */
 
 #ifndef __KEYCODESAMIGA_H__
 #define __KEYCODESAMIGA_H__ __KEYCODESAMIGA_H__
