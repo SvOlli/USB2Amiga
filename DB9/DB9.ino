@@ -1,6 +1,6 @@
 /*
- * USB to CDTV Keyboard Mouse Joystick converter
- * =============================================
+ * USB to Amiga Keyboard Mouse converter
+ * =====================================
  * 
  * written by SvOlli
  * 
@@ -15,7 +15,7 @@
 
 #include <Arduino.h>
 #include <stdint.h>
-#include "cdtv.h"
+#include "amiga_mouse.h"
 #include "amiga_keyb.h"
 #include "USB_Mouse.hpp"
 #include "USB_Keyboard.hpp"
@@ -30,35 +30,6 @@ HIDBoot<USB_HID_PROTOCOL_MOUSE>                             HidMouse(&Usb);
 KbdRptParser   KbdPrs;
 MouseRptParser MousePrs;
 
-class KbdRptParserCDTV : public KeyRptParserCallback
-{
-public:
-  bool handle( uint8_t mod, uint8_t key, bool press );
-};
-
-
-bool KbdRptParserCDTV::handle( uint8_t mod, uint8_t key, bool press )
-{
-#if DEBUG
-Serial.print( "KbdRptParserCDTV::handle: key=" );
-PrintHex<uint8_t>( key, 0x80 );
-Serial.print( " mod=" );
-PrintHex<uint8_t>( mod, 0x80 );
-Serial.println( press ? " press" : " release" );
-#endif
-  if( (mod == 0) && (key == 0x46) )
-  {
-#if DEBUG
-Serial.println( "Action" );
-#endif
-    set_cdtv_code( press ? CDTV_CODE_POWER : 0 );
-    return true;
-  }
-  return false;
-}
-KbdRptParserCDTV KbdPrsCDTV;
-
-
 void setup()
 {
 #if DEBUG
@@ -70,8 +41,7 @@ void setup()
   Serial.println( "\r\nAmiga Keyboard starting" );
   Serial.println( "Compiled: " __DATE__ " " __TIME__ );
 #endif
-  KbdPrs.setCallback( &KbdPrsCDTV );
-  cdtv_init();
+  db9_mouse_init();
   amikbd_setup();
 
   if( Usb.Init() == -1 )

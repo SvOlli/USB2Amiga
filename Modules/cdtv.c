@@ -3,7 +3,7 @@
  * written by matsstaff
  * modified by SvOlli
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 /*
@@ -125,7 +125,8 @@ void set_cdtv_code( uint16_t code )
 }
 
 // Joystick interrupt
-ISR(PCINT1_vect) {
+ISR(PCINT1_vect)
+{
   TCCR1B |= (1 << CS11); // Make sure timer is enabled
 }
 
@@ -203,7 +204,8 @@ enum transmitstates {
   m_stop2
 };
 
-ISR(TIMER1_COMPA_vect) {
+ISR(TIMER1_COMPA_vect)
+{
   static uint16_t last_state=0;
   static uint8_t tx_state=0;
   static uint32_t mouse=0;

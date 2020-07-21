@@ -3,7 +3,7 @@
  * written by matsstaff
  * modified by SvOlli
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 #ifndef __CDTV_H__

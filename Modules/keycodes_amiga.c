@@ -2,7 +2,7 @@
  * written by SvOlli
  * after reading the Amiga Hardware Reference Manual
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 #include "keycodes_amiga.h"

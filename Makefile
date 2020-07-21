@@ -1,4 +1,4 @@
-USB2AMIGA_VARIANTS = CDTV
+USB2AMIGA_VARIANTS = CDTV DB9 A500
 BUILD_BASE      := $(abspath $(lastword $(MAKEFILE_LIST))/..)/tmp
 
 RM = rm -rf
@@ -13,16 +13,10 @@ clean:
 	$(RM) $(BUILD_BASE)
 
 release:
-	@if git status | grep '[	 ]USB2Amiga/'; then \
-	   echo -e "\n*** source code contains uncommitted changes\n"; \
-           exit 1; \
-        fi
 	$(MAKE) clean
-	$(MAKE) all
-	for r in $(USB2AMIGA_VARIANTS); do $(CP) $(BUILD_BASE)/$$r/USB2Amiga.hex hex/USB2Amiga.$$r.hex; done
-	git add hex/
+	$(MAKE) all CFLAGS+=-DDEBUG=0 CXXFLAGS+=-DDEBUG=0
+	@$(LS) tmp/*/*.hex
 
-CDTV:
+$(USB2AMIGA_VARIANTS):
 	$(MAKE) -C $@ -f ../arduino.mk all
-	$(LS) $(BUILD_BASE)/$@/*.hex
 

@@ -4,7 +4,7 @@
  * written by hkzlab
  * modified by matsstaff and SvOlli
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 #ifndef __AMIGA_KEYB_H__

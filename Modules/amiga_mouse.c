@@ -2,14 +2,13 @@
  * written by SvOlli
  * after taking a look a https://github.com/cssvb94/AmigaUSBMouseJoystick
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 #include <Arduino.h>
-#include "config.h"
+#include "gpio.h"
 #include <stdbool.h>
 
-#if USE_AMIGA_MOUSE
 const int ADELAY = 200;
 bool HQ[4] = { false, true, true, false };
 bool H[4] =  { false, false, true, true };
@@ -32,13 +31,19 @@ uint8_t YSIGN;
 #endif
 
 
-void amims_init()
+void AMIGAHorizontalMove();
+void AMIGAVerticalMove();
+
+
+void db9_mouse_init()
 {
+#if 0
   // Disable the watchdog timer (if set in fuses)
   MCUSR &= ~(1 << WDRF);
   wdt_disable();
   // Disable the clock divider (if set in fuses)
   clock_prescale_set(clock_div_1);
+#endif
 
   AMIGAHorizontalMove();
   AMIGAVerticalMove();
@@ -94,51 +99,30 @@ void AMIGAVerticalMove()
 }
 
 
-void AMIGALeft()
-{
-  QX = (QX+1) & 3;
-  AMIGAHorizontalMove();
-}
-
-void AMIGARight()
-{
-  QX = (QX-1) & 3;
-  AMIGAHorizontalMove();
-}
-
-void AMIGADown()
-{
-  QY = (QY+1) & 3;
-  AMIGAVerticalMove();
-}
-
-void AMIGAUp()
-{
-  QY = (QY-1) & 3;
-  AMIGAVerticalMove();
-}
-
-
-void mouse_set_state( uint8_t buttons, int8_t x, int8_t y )
+void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y )
 {
   while( x > 0 )
   {
-    AmigaRight();
+    QX = (QX-1) & 3;
+    AMIGAHorizontalMove();
     --x;
   }
   while( x < 0 )
   {
-    AmigaLeft();
+    QX = (QX+1) & 3;
+    AMIGAHorizontalMove();
     ++x;
   }
   while( y > 0 )
   {
-    AmigaDown();
+    QY = (QY+1) & 3;
+    AMIGAVerticalMove();
     --y;
   }
   while( y < 0 )
   {
-    AmigaUp();
+    QY = (QY-1) & 3;
+    AMIGAVerticalMove();
     ++y;
   }
 
@@ -171,4 +155,3 @@ void mouse_set_state( uint8_t buttons, int8_t x, int8_t y )
   }
 #endif
 }
-#endif

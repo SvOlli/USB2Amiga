@@ -7,11 +7,18 @@ Arduino pro mini 328p 3.3V.
 Pins On Arduino
 ---------------
 
-Pin | Signal | Note
-----|--------|-------------------
- 2  | KBCLK  | 
- 3  | KBDAT  | may not be changed
- 6  | PRDT   | 
+Pin | Signal    | Note
+----|-----------|-----------------------------------------------
+ 2  | KBCLK     |
+ 3  | KBDAT     | may not be changed
+ 6  | PRDT      |
+ A0 | DB9 Pin 4 | optional joystick to CDTV interface (untested)
+ A1 | DB9 Pin 3 | optional joystick to CDTV interface (untested)
+ A2 | DB9 Pin 2 | optional joystick to CDTV interface (untested)
+ A3 | DB9 Pin 1 | optional joystick to CDTV interface (untested)
+ A4 | DB9 Pin 9 | optional joystick to CDTV interface (untested)
+ A5 | DB9 Pin 6 | optional joystick to CDTV interface (untested)
+GND | DB9 Pin 8 | optional joystick to CDTV interface (untested)
 
 Pull these signals through a level shifter with LV# on Arduino side and HV#
 on CDTV side. The pins 2, 3 and 6 match the layout of the typical 4-bit

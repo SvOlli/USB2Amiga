@@ -2,8 +2,8 @@
  * written by SvOlli
  */
 
-#ifndef __PINCFG_H__
-#define __PINCFG_H__ __PINCFG_H__
+#ifndef __CONFIG_H__
+#define __CONFIG_H__ __CONFIG_H__
 
 #include <Arduino.h>
 

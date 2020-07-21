@@ -2,7 +2,7 @@
  * written by SvOlli after reading the 
  * Arduino USB Host Shield library 2.0 example code USBHIDBootKbdAndMouse
  *
- * distributed unter the terms of the GPLv3 or later
+ * distributed under the terms of the GPLv3 or later
  */
 
 #include "USB_Mouse.hpp"
