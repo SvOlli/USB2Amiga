@@ -10,29 +10,63 @@
 #include <stdbool.h>
 
 const int ADELAY = 200;
-bool HQ[4] = { false, true, true, false };
-bool H[4] =  { false, false, true, true };
 
-uint8_t QX = 3;
-uint8_t QY = 3;
-uint8_t XSTEPS;
-uint8_t YSTEPS;
-uint8_t XSIGN;
-uint8_t YSIGN;
-
-#define X1PIN (4)
-#define X2PIN (5)
-#define Y1PIN (6)
-#define Y2PIN (7)
-#define LBPIN (8)
-#define RBPIN (9)
-#if USE_AMIGA_MOUSE_MB
-#define MBPIN (1)
-#endif
+uint8_t QX = 0;
+uint8_t QY = 0;
 
 
-void AMIGAHorizontalMove();
-void AMIGAVerticalMove();
+void outputX()
+{
+  switch( QX )
+  {
+    case 0:
+      weak_pullup( PIN_DB9_X1 );
+      weak_pullup( PIN_DB9_X2 );
+      break;
+    case 1:
+      weak_pullup( PIN_DB9_X1 );
+      pull_down( PIN_DB9_X2 );
+      break;
+    case 2:
+      pull_down( PIN_DB9_X1 );
+      pull_down( PIN_DB9_X2 );
+      break;
+    case 3:
+      pull_down( PIN_DB9_X1 );
+      weak_pullup( PIN_DB9_X2 );
+      break;
+    default:
+      break;
+  }
+  delayMicroseconds(ADELAY);
+}
+
+
+void outputY()
+{
+  switch( QY )
+  {
+    case 0:
+      weak_pullup( PIN_DB9_Y1 );
+      weak_pullup( PIN_DB9_Y2 );
+      break;
+    case 1:
+      weak_pullup( PIN_DB9_Y1 );
+      pull_down( PIN_DB9_Y2 );
+      break;
+    case 2:
+      pull_down( PIN_DB9_Y1 );
+      pull_down( PIN_DB9_Y2 );
+      break;
+    case 3:
+      pull_down( PIN_DB9_Y1 );
+      weak_pullup( PIN_DB9_Y2 );
+      break;
+    default:
+      break;
+  }
+  delayMicroseconds(ADELAY);
+}
 
 
 void db9_mouse_init()
@@ -45,57 +79,13 @@ void db9_mouse_init()
   clock_prescale_set(clock_div_1);
 #endif
 
-  AMIGAHorizontalMove();
-  AMIGAVerticalMove();
-  weak_pullup( LBPIN );
-  weak_pullup( RBPIN );
+  outputX();
+  outputY();
+  weak_pullup( PIN_DB9_LB );
+  weak_pullup( PIN_DB9_RB );
 #if USE_AMIGA_MOUSE_MB
-  weak_pullup( MBPIN );
+  weak_pullup( PIN_DB9_MB );
 #endif
-}
-
-
-void AMIGAHorizontalMove()
-{
-  if( H[QX] )
-  {
-    weak_pullup( X1PIN );
-  }
-  else
-  {
-    pull_down( X1PIN );
-  }
-  if( HQ[QX] )
-  {
-    weak_pullup( X2PIN );
-  }
-  else
-  {
-    pull_down( X2PIN );
-  }
-  delayMicroseconds(ADELAY);
-}
-
-
-void AMIGAVerticalMove()
-{
-  if( H[QX] )
-  {
-    weak_pullup( Y1PIN );
-  }
-  else
-  {
-    pull_down( Y1PIN );
-  }
-  if( HQ[QX] )
-  {
-    weak_pullup( Y2PIN );
-  }
-  else
-  {
-    pull_down( Y2PIN );
-  }
-  delayMicroseconds(ADELAY);
 }
 
 
@@ -104,54 +94,54 @@ void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y )
   while( x > 0 )
   {
     QX = (QX-1) & 3;
-    AMIGAHorizontalMove();
+    outputX();
     --x;
   }
   while( x < 0 )
   {
     QX = (QX+1) & 3;
-    AMIGAHorizontalMove();
+    outputX();
     ++x;
   }
   while( y > 0 )
   {
     QY = (QY+1) & 3;
-    AMIGAVerticalMove();
+    outputY();
     --y;
   }
   while( y < 0 )
   {
     QY = (QY-1) & 3;
-    AMIGAVerticalMove();
+    outputY();
     ++y;
   }
 
   if( buttons & 1 )
   {
-    pull_down( LBPIN );
+    pull_down( PIN_DB9_LB );
   }
   else
   {
-    weak_pullup( LBPIN );
+    weak_pullup( PIN_DB9_LB );
   }
 
   if( buttons & 2 )
   {
-    pull_down( RBPIN );
+    pull_down( PIN_DB9_RB );
   }
   else
   {
-    weak_pullup( RBPIN );
+    weak_pullup( PIN_DB9_RB );
   }
 
 #if USE_AMIGA_MOUSE_MB
   if( buttons & 4 )
   {
-    pull_down( MBPIN );
+    pull_down( PIN_DB9_MB );
   }
   else
   {
-    weak_pullup( MBPIN );
+    weak_pullup( PIN_DB9_MB );
   }
 #endif
 }
