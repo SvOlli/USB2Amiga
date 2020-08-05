@@ -33,11 +33,11 @@ MouseRptParser MousePrs;
 class KbdRptParserCDTV : public KeyRptParserCallback
 {
 public:
-  bool handle( uint8_t mod, uint8_t key, bool press );
+  bool handle( uint8_t &mod, uint8_t &key, bool press );
 };
 
 
-bool KbdRptParserCDTV::handle( uint8_t mod, uint8_t key, bool press )
+bool KbdRptParserCDTV::handle( uint8_t &mod, uint8_t &key, bool press )
 {
 #if DEBUG
 Serial.print( "KbdRptParserCDTV::handle: key=" );

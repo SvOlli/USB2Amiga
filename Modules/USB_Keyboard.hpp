@@ -17,7 +17,8 @@ class KeyRptParserCallback
 {
 public:
   /* inputs are the same as OnKeyUp/Down, return is stop processing */
-  virtual bool handle( uint8_t mod, uint8_t key, bool press ) = 0;
+  /* mod and key passed as reference to allow modifying */
+  virtual bool handle( uint8_t &mod, uint8_t &key, bool press ) = 0;
 };
 
 

@@ -209,7 +209,7 @@ void KbdRptParser::OnKeyUp( uint8_t mod, uint8_t key )
   {
     mReset = false;
 #if DEBUG
-  Serial.println( "Sending hard reset" );
+    Serial.println( "Sending hard reset" );
 #endif
     amiga_keyboard_reset();
   }
