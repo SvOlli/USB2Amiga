@@ -17,25 +17,39 @@ Amiga is open collector, the project should work without it, it was tested and
 working for a couple of hours without any problems. But the ATmega is used way
 out of the specification, so a level shifter is highly recommended.)
 
-![DevBoard](images/dev_board.jpg)
+![DevBoard](images/prot_board.jpg)
 
 The code is setup in a modular way, so recompiling with different options set
 in `config.h`. So switching from CDTV specific behavior to a generic Amiga
 approach is intended (but not yet implemented.)
 
 
-System | Keyboard   | Mouse    | Joystick | Note
--------|------------|----------|----------|---------------------------------
-CDTV   | working    | working  | untested | primay development target
-CD32   | untested   | planning | planning | soon to come
-A500   | untested   | planning | planning | reset handling different
-A600   | won't work | planning | planning | different keyboard handling
-A1000  | untested   | planning | planning | no system available for testing
-A1200  | won't work | planning | planning | different keyboard handling
-A2000  | untested   | planning | planning | soon to come
-A3000  | untested   | planning | planning | no system available for testing
-A4000  | untested   | planning | planning | no system available for testing
-A4000T | untested   | planning | planning | no system available for testing
+Code Variants
+-------------
+
+Name | Keyboard  | Mouse | Comment
+-----|-----------|-------|----------------------------------------------------
+CDTV | Amiga     | CDTV  | also allows joystick to CDTV conversion
+DB9  | Amiga     | Amiga | standard for all big box Amigas
+A500 | Amiga 500 | Amiga | A500 uses different keyboard reset implementation
+CD32 | PS/2      | Amiga | for riser PS/2-to-Amiga keyboard adapter (TBD)
+
+
+Systems Tested
+--------------
+
+System | Keyboard   | Mouse    | Note
+-------|------------|----------|----------------------------------------------
+CDTV   | working    | working  | primay development target
+CD32   | untested   | working  | riser PS/2 will need different version
+A500   | untested   | untested | reset handling different
+A600   | won't work | untested | not recommended, different keyboard handling
+A1000  | untested   | untested | no system available for testing
+A1200  | won't work | untested | not recommended, different keyboard handling
+A2000  | untested   | untested | soon to come
+A3000  | untested   | untested | no system available for testing
+A4000  | untested   | untested | no system available for testing
+A4000T | untested   | untested | no system available for testing
 
 
 FAQ
