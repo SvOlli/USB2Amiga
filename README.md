@@ -32,7 +32,7 @@ Name | Keyboard  | Mouse | Comment
 CDTV | Amiga     | CDTV  | also allows joystick to CDTV conversion
 DB9  | Amiga     | Amiga | standard for all big box Amigas
 A500 | Amiga 500 | Amiga | A500 uses different keyboard reset implementation
-CD32 | PS/2      | Amiga | for riser PS/2-to-Amiga keyboard adapter (TBD)
+PS2  | PS/2      | Amiga | keyboard output is PS/2 for Kipper 2K's CD32 riser
 
 
 Systems Tested
@@ -54,33 +54,46 @@ A4000T | untested   | untested | no system available for testing
 
 FAQ
 ---
-Can I use it with an USB hub?
 
-No, sorry. To keep the code simple, this seldom used feature is not implmented.
-The example code for USB keyboard and mouse from the library does not support
-this either, even though the code looks like it might. A workaround would be to
-build two USB2Amiga, using one for keyboard and one for mouse.
+* Can I use it with an USB hub? \
+  No, sorry. To keep the code simple, this seldom used feature is not
+  implmented. The example code for USB keyboard and mouse from the library
+  does not support this either, even though the code looks like it might. A
+  workaround would be to build two USB2Amiga, using one for keyboard and one
+  for mouse.
 
-Why don't the LEDs (CAPS LOCK, etc.) work?
+* Why don't the LEDs (CAPS LOCK, etc.) work? \
+  I don't know. They don't work with example code "USBHIDBootKbdAndMouse"
+  either, on which this USB code is based on. My guess it's a bug in the USB
+  Host Shield library, or maybe it's my cheap USB host shield clone.
 
-I don't know. They don't work with example code "USBHIDBootKbdAndMouse" either,
-on which this USB code is based on. My guess it's a bug in the USB Host Shield
-library, or maybe it's my cheap USB host shield clone.
+* Can I send any CDTV specific codes via keyboard? \
+  This is possible also only one keystroke is implemented: the power button.
+  This way you can turn the machine one, if it is powered by the 4-pin mini
+  DIN connector. Others can be implemented as well, just ask.
 
-Can I send any CDTV specific codes via keyboard?
-
-This is possible also only one keystroke is implemented: the power button. This
-way you can turn the machine one, if it is powered by the 4-pin mini DIN
-connector. Others can be implemented as well, just ask.
+* Do I have to install the Arduino IDE just for flashing? \
+  No, precompiled hex-files ready for flashing are included in the directory
+  name "hex". There is a tool called
+  [XLoader](https://www.hobbytronics.co.uk/arduino-xloader) that can upload
+  a hex-file as a standalone application. "Duemilanove/Nano(ATmega328)"
+  worked for me as the device to upload to. Linux users need the command
+  line tool "avrdude" and the search engine of your choice to figure out
+  the commandline parameters for the ATmega328 microcontroller used.
 
 
 Building
 --------
-- [CDTV](Build_CDTV.md)
+
+- [Commodore CDTV](Build_CDTV.md)
+- Amiga 500 (tbd)
+- "Big Box" Amigas (tbd)
+- CD32 (tdb)
 
 
 Acknowledgements
 ----------------
+
 This project wouldn't have been possible without using and twisting (or at
 least looking at) other peoples code.
 
@@ -92,3 +105,4 @@ least looking at) other peoples code.
 - cssvb94 gave me the idea on how to include support for a standard amiga
   mouse with his project
   [AmigaUSBMouseJoystick](https://github.com/cssvb94/AmigaUSBMouseJoystick)
+
