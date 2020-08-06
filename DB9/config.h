@@ -24,8 +24,8 @@
 #define PIN_DB9_Y1 (6) /* Pin 3 on DB9 */
 #define PIN_DB9_X2 (7) /* Pin 4 on DB9 */
 #define PIN_DB9_LB (8) /* Pin 6 on DB9 */
-#define PIN_DB9_RB (9) /* Pin 9 on DB9 */
-#define PIN_DB9_MB A0  /* Pin 5 on DB9, optional */
+#define PIN_DB9_RB A0  /* Pin 9 on DB9 */
+#define PIN_DB9_MB A1  /* Pin 5 on DB9, optional */
                        /* Pin 8 on DB9 is GND */
                        /* Pin 7 on DB9 is +5V, which is typically not needed*/
 

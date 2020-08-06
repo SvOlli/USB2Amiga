@@ -4,7 +4,7 @@ USB2Amiga
 This project is about connecting USB HID devices like keyboard, mouse and the
 combination of those (sometimes called "desktops") to almost any Amiga. The
 project originally started out to get a working keyboard for a Commodore CDTV
-without spending big bugs. Also if it should work with a kvm switch that would
+without spending big bucks. Also if it should work with a kvm switch that would
 be nice.
 
 ![CDTV](images/cdtv.jpg)
@@ -86,8 +86,8 @@ Building
 --------
 
 - [Commodore CDTV](Build_CDTV.md)
-- Amiga 500 (tbd)
 - "Big Box" Amigas (tbd)
+- Amiga 500 (tbd)
 - CD32 (tdb)
 
 

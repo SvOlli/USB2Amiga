@@ -23,10 +23,11 @@ static inline void pull_down( uint8_t pin )
 
 /* pin configuration usb host shield 
  * (for documentation purposes only) */
-#define              PIN_USB_SS   (10)
-#define              PIN_USB_CLK  (11)
-#define              PIN_USB_MISO (12)
-#define              PIN_USB_MOSI (13)
+#define PIN_USB_INTR (9)
+#define PIN_USB_SS   (10)
+#define PIN_USB_CLK  (11)
+#define PIN_USB_MISO (12)
+#define PIN_USB_MOSI (13)
 
 #include "config.h"
 

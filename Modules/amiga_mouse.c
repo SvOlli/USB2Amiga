@@ -83,7 +83,7 @@ void db9_mouse_init()
   outputY();
   weak_pullup( PIN_DB9_LB );
   weak_pullup( PIN_DB9_RB );
-#if USE_AMIGA_MOUSE_MB
+#if PIN_DB9_MB
   weak_pullup( PIN_DB9_MB );
 #endif
 }
@@ -134,7 +134,7 @@ void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y )
     weak_pullup( PIN_DB9_RB );
   }
 
-#if USE_AMIGA_MOUSE_MB
+#if PIN_DB9_MB
   if( buttons & 4 )
   {
     pull_down( PIN_DB9_MB );
