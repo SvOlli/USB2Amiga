@@ -81,12 +81,19 @@ FAQ
   line tool "avrdude" and the search engine of your choice to figure out
   the commandline parameters for the ATmega328 microcontroller used.
 
+* Why can't I compile the project with the Arduino IDE on Windows? \
+  The git client you're using is not configured to be using symbolic links.
+  I'm using symlinks as a hack to build different variants with an almost
+  similar codebase. I had to cope with a bad IDE and a bad OS. A possbile
+  solution is described
+  [here](https://github.community/t/git-bash-symbolic-links-on-windows/522/4).
+
 
 Building
 --------
 
 - [Commodore CDTV](Build_CDTV.md)
-- "Big Box" Amigas (tbd)
+- ["Big Box" Amigas](Build_DB9.md)
 - Amiga 500 (tbd)
 - CD32 (tdb)
 
