@@ -14,8 +14,8 @@
 /* pin configuration Amiga keyboard
  * PIN_KB_RESET is typically the same as PIN_KB_CLK,
  * except for the A500 where it has to be a dedicated pin */
-#define PIN_KB_DATA  (3)
 #define PIN_KB_CLK   (2)
+#define PIN_KB_DATA  (3)
 #define PIN_KB_RESET PIN_KB_CLK
 
 /* pin configuration Amiga mouse */

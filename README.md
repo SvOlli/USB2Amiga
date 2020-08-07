@@ -19,9 +19,8 @@ out of the specification, so a level shifter is highly recommended.)
 
 ![DevBoard](images/prot_board.jpg)
 
-The code is setup in a modular way, so recompiling with different options set
-in `config.h`. So switching from CDTV specific behavior to a generic Amiga
-approach is intended (but not yet implemented.)
+The code is setup in a modular way, so compiling a version with a different
+focus is rather easy. As a result, "big box" Amigas now also supported.
 
 
 Code Variants
@@ -38,18 +37,18 @@ PS2  | PS/2      | Amiga | keyboard output is PS/2 for Kipper 2K's CD32 riser
 Systems Tested
 --------------
 
-System | Keyboard   | Mouse    | Note
--------|------------|----------|----------------------------------------------
-CDTV   | working    | working  | primay development target
-CD32   | untested   | working  | riser PS/2 will need different version
-A500   | untested   | untested | reset handling different
-A600   | won't work | untested | not recommended, different keyboard handling
-A1000  | untested   | untested | no system available for testing
-A1200  | won't work | untested | not recommended, different keyboard handling
-A2000  | untested   | untested | soon to come
-A3000  | untested   | untested | no system available for testing
-A4000  | untested   | untested | no system available for testing
-A4000T | untested   | untested | no system available for testing
+System | Keyboard     | Mouse    | Note
+-------|--------------|----------|----------------------------------------
+CDTV   | working      | working  | primay development target
+CD32   | untested     | working  | riser PS/2 will need different version
+A500   | untested     | untested | reset handling differs
+A600   | *won't work* | untested | keyboard connected without controller
+A1000  | untested     | untested | no system available for testing
+A1200  | *won't work* | untested | keyboard connected without controller
+A2000  | untested     | untested | soon to come
+A3000  | untested     | untested | no system available for testing
+A4000  | untested     | untested | no system available for testing
+A4000T | untested     | untested | no system available for testing
 
 
 FAQ
@@ -94,7 +93,7 @@ Building
 
 - [Commodore CDTV](Build_CDTV.md)
 - ["Big Box" Amigas](Build_DB9.md)
-- Amiga 500 (tbd)
+- [Amiga 500](Build_A500.md)
 - CD32 (tdb)
 
 

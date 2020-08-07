@@ -4,11 +4,12 @@ Build Configuration For Big Box Amigas
 You can use the precompiled file `hex/USB2Amiga.DB9.hex` to program the
 Arduino pro mini 328p 3.3V.
 
+
 Pins On Arduino
 ---------------
 
 Pin | Signal    | Note
-----|-----------|-----------------------------------------------
+----|-----------|------------------------------
  2  | KBCLK     |
  3  | KBDAT     | may not be changed
  4  | DB9 Pin 1 | Y2 mouse signal
@@ -19,6 +20,7 @@ Pin | Signal    | Note
 A0  | DB9 Pin 9 | right mouse button
 A1  | DB9 Pin 5 | optional middle mouse button
 GND | DB9 Pin 8 | mouse ground
+
 
 Pull these signals through a level shifter with LV# on the Arduino side and
 HV# on the Amiga side. With an 8-bit level shifter you can get everything

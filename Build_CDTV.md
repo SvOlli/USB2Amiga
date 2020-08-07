@@ -4,11 +4,12 @@ Build Configuration For CDTV
 You can use the precompiled file `hex/USB2Amiga.CDTV.hex` to program the
 Arduino pro mini 328p 3.3V.
 
+
 Pins On Arduino
 ---------------
 
 Pin | Signal    | Note
-----|-----------|-----------------------------------------------
+----|-----------|------------------------------------------------
  2  | KBCLK     |
  3  | KBDAT     | may not be changed
  6  | PRDT      |
@@ -20,10 +21,13 @@ Pin | Signal    | Note
  A5 | DB9 Pin 6 | optional joystick to CDTV interface (untested)
 GND | DB9 Pin 8 | optional joystick to CDTV interface (untested)
 
-Pull these signals through a level shifter with LV# on Arduino side and HV#
-on CDTV side. The pins 2, 3 and 6 match the layout of the typical 4-bit
-level shifters, where the pins in the center are used for GND and refence
-voltage.
+
+Pull the non-joystick signals through a level shifter with LV# on Arduino
+side and HV# on CDTV side. The pins 2, 3 and 6 match the layout of the
+typical 4-bit level shifters, where the pins in the center are used for GND
+and refence voltage. The joystick interface is purely passive, so there is
+no need for level shifting. This also means that the CD32 gamepad will not
+work properly.
 
 Also connect +5V from only one of the ports to RAW on the Arduino Pro Mini
 and HV on the level shifter. The +5V from the 5-pin connector (labeled "K/B")
@@ -35,6 +39,8 @@ GND should be connected to both CDTV ports, GND on both sides of the level
 shifter and GND on the Arduino. This way the converter works also when only
 one port is connected for that port.
 
+
 Pins On CDTV
 ------------
 ![CDTV connectors](images/cdtv_kb_mouse.png)
+
