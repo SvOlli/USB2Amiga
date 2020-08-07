@@ -1,15 +1,25 @@
-Build Configuration For Big Box Amigas
-======================================
+Build Configuration For Amiga CD32
+==================================
 
-You can use the precompiled file `hex/USB2Amiga.DB9.hex` to program the
-Arduino pro mini 328p 3.3V.
+**(Note: the mentioned PS/2 version is not implemented yet)**
+
+You can use the precompiled file `hex/USB2Amiga.DB9.hex` or
+`hex/USB2Amiga.PS2.hex` to program the Arduino pro mini 328p 3.3V.
+Which one to use depends on your configuration of the CD32. If you're using
+a version without a riser card that includes a PS/2 to Amiga keyboard
+adapter, you use the `USB2Amiga.DB9.hex` version. But, my system for example
+has the "CD32 Expansion Adapter" designed by Kipper2k. Running two keyboard
+controllers on the same interface breaks things. So, in this configuration
+you can use the `USB2Amiga.PS2.hex` version of this software and instead of
+connecting it to the CD32 keyboard connector you connect to the PS/2
+converter.
 
 
 Pins On Arduino
 ---------------
 
 Pin | Signal    | Note
-----|-----------|------------------------------
+----|-----------|-----------------------------------------------
  2  | KBCLK     |
  3  | KBDAT     | may not be changed
  4  | DB9 Pin 1 | Y2 mouse signal
@@ -21,6 +31,8 @@ A0  | DB9 Pin 9 | right mouse button
 A1  | DB9 Pin 5 | optional middle mouse button
 GND | DB9 Pin 8 | mouse ground
 
+
+[(Is the mentioned level shifter necessary?)](LevelShifter.md)
 
 Pull these signals through a level shifter with LV# on the Arduino side and
 HV# on the Amiga side. With an 8-bit level shifter you can get everything
@@ -41,50 +53,23 @@ The DB9 pins are described above, the pins of the keyboard connector differ
 from model to model.
 
 
-A1000
------
-
-![A1000 connector](images/connector_A1000.png)
-The connector is called 4P4C or RJ10.
-
-Pin | Function
-----|----------
- 1  | +5V
- 2  | KBCLK
- 3  | KBDAT
- 4  | GND
-
-
-A2000 & A3000
--------------
-
-![A2000 connector](images/connector_A2000.png)
-Note the odd numbering of the pins.
-
-Pin | Function
-----|----------
- 1  | KBCLK
- 2  | KBDAT
- 3  | n/c
- 4  | GND
- 5  | +5V
-
-
-A4000
------
-
-![A4000 connector](images/connector_A4000.png)
+![CD32 connector](../images/connector_A4000.png)
 The connector physically the same as the PS/2 keyboard connector. This means
 you can reuse and old PS/2 keyboard or mouse cable.
 
 Pin | Function
 ----|----------
  1  | KBDAT
- 2  | n/c
+ 2  | TXD (*)
  3  | GND
  4  | +5V
  5  | KBCLK
- 6  | n/c
+ 6  | RXD (*)
 
 Also note that all connectors show the Amiga connector side, not the cable
 connector.
+
+(*) TXD and RXD are the serial interface of the CD32. But contrary to all
+    other Amigas, the power levels are TTL (+5V and 0V) instead of RS232
+    (+12V and -12V). This way it can be easily connected to a cheap
+    USB-to-TTL serial converter to connect to modern PCs.

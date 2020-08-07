@@ -48,7 +48,7 @@ A1200  | *won't work* | untested | keyboard connected without controller
 A2000  | untested     | untested | soon to come
 A3000  | untested     | untested | no system available for testing
 A4000  | untested     | untested | no system available for testing
-A4000T | untested     | untested | no system available for testing
+A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
 
 FAQ
@@ -91,9 +91,9 @@ FAQ
 Building
 --------
 
-- [Commodore CDTV](Build_CDTV.md)
-- ["Big Box" Amigas](Build_DB9.md)
-- [Amiga 500](Build_A500.md)
+- [Commodore CDTV](documentation/Build_CDTV.md)
+- ["Big Box" Amigas](documentation/Build_DB9.md)
+- [Amiga 500](documentation/Build_A500.md)
 - CD32 (tdb)
 
 

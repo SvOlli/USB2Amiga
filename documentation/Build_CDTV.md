@@ -22,6 +22,8 @@ Pin | Signal    | Note
 GND | DB9 Pin 8 | optional joystick to CDTV interface (untested)
 
 
+[(Is the mentioned level shifter necessary?)](LevelShifter.md)
+
 Pull the non-joystick signals through a level shifter with LV# on Arduino
 side and HV# on CDTV side. The pins 2, 3 and 6 match the layout of the
 typical 4-bit level shifters, where the pins in the center are used for GND
@@ -42,5 +44,5 @@ one port is connected for that port.
 
 Pins On CDTV
 ------------
-![CDTV connectors](images/cdtv_kb_mouse.png)
+![CDTV connectors](../images/cdtv_kb_mouse.png)
 

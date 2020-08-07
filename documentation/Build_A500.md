@@ -23,6 +23,8 @@ A2  | DB9 Pin 5 | optional middle mouse button
 GND | DB9 Pin 8 | mouse ground
 
 
+[(Is the mentioned level shifter necessary?)](LevelShifter.md)
+
 Pull these signals through a level shifter with LV# on the Arduino side and
 HV# on the Amiga side. Note that you need at least 9 signals to get keyboard
 and mouse working. Since I've seen a level shifter with more than 8 bits so
