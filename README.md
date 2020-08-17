@@ -33,6 +33,9 @@ DB9  | Amiga     | Amiga | standard for all big box Amigas
 A500 | Amiga 500 | Amiga | A500 uses different keyboard reset implementation
 PS2  | PS/2      | Amiga | keyboard output is PS/2 for Kipper 2K's CD32 riser
 
+(PS/2 is not implemented yet, I still need to find example code simulating a
+PS/2 keyboard.)
+
 
 Systems Tested
 --------------
@@ -40,13 +43,13 @@ Systems Tested
 System | Keyboard     | Mouse    | Note
 -------|--------------|----------|----------------------------------------
 CDTV   | working      | working  | primay development target
-CD32   | untested     | working  | riser PS/2 will need different version
+CD32   | working      | working  | interferes PS/2 keyboards on riser
 A500   | untested     | untested | reset handling differs
 A600   | *won't work* | untested | keyboard connected without controller
 A1000  | untested     | untested | no system available for testing
 A1200  | *won't work* | untested | keyboard connected without controller
 A2000  | untested     | untested | soon to come
-A3000  | untested     | untested | no system available for testing
+A3000  | untested     | untested | tested by "ottifant011" from A1K.org
 A4000  | untested     | untested | no system available for testing
 A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
@@ -73,7 +76,7 @@ FAQ
 
 * Do I have to install the Arduino IDE just for flashing? \
   No, precompiled hex-files ready for flashing are included in the directory
-  name "hex". There is a tool called
+  name "hex". There is a Windows tool called
   [XLoader](https://www.hobbytronics.co.uk/arduino-xloader) that can upload
   a hex-file as a standalone application. "Duemilanove/Nano(ATmega328)"
   worked for me as the device to upload to. Linux users need the command
@@ -91,10 +94,30 @@ FAQ
 Building
 --------
 
+### Hardware Requirements
+- [USB host shield mini](https://www.shop.tkjelectronics.dk/product_info.php?products_id=45)
+  (I bought cheap chinese knockoffs)
+- [Arduino Pro Mini 328 3.3V / 8Mhz](https://www.adafruit.com/product/2377)
+  (again, I bought cheap chinese knockoffs;
+   be sure **NOT** to take 5V or 168 models)
+- a programmer / serial interface working with the pro mini
+- matching connectors (DB9 female for mouse, DIN-5 180° for A2/3000 keyboard,
+  mini-DIN-6 for A4000 or CD32, mini-DIN-4 and mini-DIN-5 for CDTV, etc.)
+
+### Instructions For Specific Hardware
 - [Commodore CDTV](documentation/Build_CDTV.md)
 - ["Big Box" Amigas](documentation/Build_DB9.md)
 - [Amiga 500](documentation/Build_A500.md)
 - CD32 (tdb)
+
+### Software Requirements
+Only needed when modifying code, precompiled versions are available in the
+`hex` directory.
+- [Arduino IDE](https://www.arduino.cc/en/Main/Software)
+- (optional, or alternative for Arduino IDE)
+  [Arduino-Makefile](https://github.com/sudar/Arduino-Makefile)
+  (most probable available as part of your Linux-Distro)
+- [USB Host Shield Library 2.0](https://github.com/felis/USB_Host_Shield_2.0)
 
 
 Acknowledgements

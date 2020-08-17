@@ -26,9 +26,11 @@ GND | DB9 Pin 8 | mouse ground
 [(Is the mentioned level shifter necessary?)](LevelShifter.md)
 
 Pull these signals through a level shifter with LV# on the Arduino side and
-HV# on the Amiga side. Note that you need at least 9 signals to get keyboard
-and mouse working. Since I've seen a level shifter with more than 8 bits so
-far, you will need two.
+HV# on the Amiga side. With an 8-bit level shifter you can get everything
+working. The right and middle mouse buttons reuse pins that were originally
+intended for paddles, which internally are simple potentiometers. Routing
+these signals through level shifter is not such a good idea, as trial and
+error has shown.
 
 Connect all GNDs together: the GND of the keyboard connector, pin 8 of the
 DB9 mouse connector, the Arduino pro mini and both sides of the level shifter.
@@ -41,8 +43,7 @@ the +5V pin of the keyboard connector. The +5V of the DB9 mouse connector
 can be skipped, since we are getting power from the keyboard connector
 already.
 
-The DB9 pins are described above, the pins of the keyboard connector differ
-from model to model.
+The DB9 pins are described above, the pins of the keyboard connector are:
 
 
 A500

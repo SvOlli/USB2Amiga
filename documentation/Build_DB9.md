@@ -26,7 +26,10 @@ GND | DB9 Pin 8 | mouse ground
 
 Pull these signals through a level shifter with LV# on the Arduino side and
 HV# on the Amiga side. With an 8-bit level shifter you can get everything
-working, if you skip the optional middle mouse button.
+working. The right and middle mouse buttons reuse pins that were originally
+intended for paddles, which internally are simple potentiometers. Routing
+these signals through level shifter is not such a good idea, as trial and
+error has shown.
 
 Connect all GNDs together: the GND of the keyboard connector, pin 8 of the
 DB9 mouse connector, the Arduino pro mini and both sides of the level shifter.
@@ -46,7 +49,7 @@ from model to model.
 A1000
 -----
 
-![A1000 connector](../images/connector_A1000.png)
+![A1000 connector](../images/connector_A1000.png) \
 The connector is called 4P4C or RJ10.
 
 Pin | Function
@@ -60,7 +63,7 @@ Pin | Function
 A2000 & A3000
 -------------
 
-![A2000 connector](../images/connector_A2000.png)
+![A2000 connector](../images/connector_A2000.png) \
 Note the odd numbering of the pins.
 
 Pin | Function
@@ -75,7 +78,7 @@ Pin | Function
 A4000
 -----
 
-![A4000 connector](../images/connector_A4000.png)
+![A4000 connector](../images/connector_A4000.png) \
 The connector physically the same as the PS/2 keyboard connector. This means
 you can reuse and old PS/2 keyboard or mouse cable.
 

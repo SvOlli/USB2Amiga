@@ -4,7 +4,9 @@ Thoughts About Using A Level Shifter
 Due to the
 [data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf)
 of the ATmega 328p which states:
+
 > Voltage on any pin except RESET with respect to ground: min=-0.5 max=Vcc+0.5
+
 it should not be allowed to attach 5V to any data pin. But the Amiga uses 5V
 for data signals. Other 3.3V microcontrollers sometimes state that they are
 "5V tolerant", so that you can attach them to 5V input, but they will only
