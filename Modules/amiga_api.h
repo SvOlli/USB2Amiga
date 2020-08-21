@@ -8,6 +8,7 @@
 #define __AMIGA_API_H__ __AMIGA_API_H__
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,6 +24,9 @@ void amiga_keyboard_send( uint8_t command_code );
 
 /* reset the amiga (implementation of AMIGA+AMIGA+CTRL) */
 void amiga_keyboard_reset();
+
+/* send L.ALT+L.CTRL+cursor flashfloppy commands as ff button presses */
+void amiga_handle_flashfloppy( uint8_t mod, uint8_t key, bool press );
 
 #ifdef __cplusplus
 }

@@ -54,6 +54,9 @@ Serial.println( "Action" );
     set_cdtv_code( press ? CDTV_CODE_POWER : 0 );
     return true;
   }
+#if defined(PIN_FF_NEXT) && defined(PIN_FF_PREV)
+  amiga_handle_flashfloppy( mod, key, press );
+#endif
   return false;
 }
 KbdRptParserCDTV KbdPrsCDTV;

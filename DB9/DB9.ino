@@ -30,6 +30,21 @@ HIDBoot<USB_HID_PROTOCOL_MOUSE>                             HidMouse(&Usb);
 KbdRptParser   KbdPrs;
 MouseRptParser MousePrs;
 
+
+#if defined(PIN_FF_NEXT) && defined(PIN_FF_PREV)
+class KbdRptParserFF : public KeyRptParserCallback
+{
+public:
+  bool handle( uint8_t &mod, uint8_t &key, bool press )
+  {
+    amiga_handle_flashfloppy( mod, key, press );
+    return false;
+  }
+};
+KbdRptParserFF KbdPrsFF;
+#endif
+
+
 void setup()
 {
 #if DEBUG
@@ -40,6 +55,9 @@ void setup()
   }
   Serial.println( "\r\nAmiga Keyboard starting" );
   Serial.println( "Compiled: " __DATE__ " " __TIME__ );
+#endif
+#if defined(PIN_FF_NEXT) && defined(PIN_FF_PREV)
+  KbdPrs.setCallback( &KbdPrsFF );
 #endif
   db9_mouse_init();
   amikbd_setup();

@@ -54,6 +54,29 @@ A4000  | untested     | untested | no system available for testing
 A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
 
+Flash Floppy Support
+--------------------
+
+(Untested code that will be useful only in corner cases.) \
+The versions that are suffixed with an "_FF" include some additional code for
+binding the keys combinations "left control + left alt + cursor left / right /
+up" to set pull some GPIOs to GND. These are intended to be connected to a
+Gotek floppy emulator running the
+[Flash Floppy](https://github.com/keirf/FlashFloppy)
+Software. This way you can use the keyboard to circle through the disk images,
+when setting the configuration parameter `rotary = buttons` in `FF.CFG` and
+connecting the following GPIOs to the header used for the rotary dial.
+
+Version | GPIOs used
+--------|-----------------------------------------
+CDTV_FF | 4 & 5
+DB9_FF  | A2 & A3
+A500_FF | A4 & A5 (inside the board, if available)
+
+Note: these GPIOs must not be routed through a level shifter, as the Gotek is
+running on 3.3V.
+
+
 FAQ
 ---
 
