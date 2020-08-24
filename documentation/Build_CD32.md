@@ -1,7 +1,13 @@
 Build Configuration For Amiga CD32
 ==================================
 
-**(Note: the mentioned PS/2 version is not implemented yet)**
+**(Note: the mentioned PS/2 version is not implemented yet, as I'm still
+looking for an example how to send PS/2 keyboard events. There this a lot of
+code around for reading the keyboard, but not the other way.)**
+
+These build instructions are always the same as those for
+[Amiga 4000](Build_DB9.md), except that the CD32 also has a serial interface
+included in the remaing two pins.
 
 You can use the precompiled file `hex/USB2Amiga.DB9.hex` or
 `hex/USB2Amiga.PS2.hex` to program the Arduino pro mini 328p 3.3V.

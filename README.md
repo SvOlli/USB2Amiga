@@ -54,18 +54,23 @@ A4000  | untested     | untested | no system available for testing
 A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
 
-Flash Floppy Support
---------------------
+FlashFloppy Support
+-------------------
 
-(Untested code that will be useful only in corner cases.) \
 The versions that are suffixed with an "_FF" include some additional code for
 binding the keys combinations "left control + left alt + cursor left / right /
 up" to set pull some GPIOs to GND. These are intended to be connected to a
 Gotek floppy emulator running the
-[Flash Floppy](https://github.com/keirf/FlashFloppy)
-Software. This way you can use the keyboard to circle through the disk images,
-when setting the configuration parameter `rotary = buttons` in `FF.CFG` and
-connecting the following GPIOs to the header used for the rotary dial.
+[FlashFloppy](https://github.com/keirf/FlashFloppy)
+Software. The key combinations are the same as the ones introduced by the
+[FlashFloppy On Screen Display](https://github.com/keirf/FF_OSD) for selecting
+an image. This way you can use the keyboard to circle through the disk images,
+when setting the configuration parameter `rotary = buttons` and
+`twobutton-action = eject` in `FF.CFG` and connecting the following GPIOs to
+the header used for the rotary dial. If you've already got a rotary dial
+installed, you can also solder wires to the non-GND pin of the buttons
+themselves. Obviously, then you shoudn't touch the "rotaty" parameter
+mentioned above.
 
 Version | GPIOs used
 --------|-----------------------------------------
@@ -75,6 +80,13 @@ A500_FF | A4 & A5 (inside the board, if available)
 
 Note: these GPIOs must not be routed through a level shifter, as the Gotek is
 running on 3.3V.
+
+Disclaimer: This code that will be useful only in corner cases. It has been
+implemented for this reason only: with my CDTV I've got an external Gotek with
+FlashFloppy. To be able to control this external Gotek without the need to
+stand up, I've added a cable to the two pushbuttons which is connected to
+my USB2Amiga/CDTV. Now I'm able to "press" those buttons remotely using the
+keyboard without the need to stand up.
 
 
 FAQ
@@ -131,13 +143,14 @@ Building
 - [Commodore CDTV](documentation/Build_CDTV.md)
 - ["Big Box" Amigas](documentation/Build_DB9.md)
 - [Amiga 500](documentation/Build_A500.md)
-- CD32 (tdb)
+- [Commodore Amiga CD32](documentation/Build_CD32.md)
+  *(still missing the PS/2 implementation)*
 
 ### Software Requirements
 Only needed when modifying code, precompiled versions are available in the
 `hex` directory.
 - [Arduino IDE](https://www.arduino.cc/en/Main/Software)
-- (optional, or alternative for Arduino IDE)
+- (optional, as an alternative for Arduino IDE)
   [Arduino-Makefile](https://github.com/sudar/Arduino-Makefile)
   (most probable available as part of your Linux-Distro)
 - [USB Host Shield Library 2.0](https://github.com/felis/USB_Host_Shield_2.0)
