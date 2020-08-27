@@ -51,36 +51,36 @@ void KbdRptParser::OnControlKeysChanged( uint8_t before, uint8_t after )
   MODIFIERKEYS afterMod;
   *((uint8_t*)&afterMod) = after;
 
-  if (beforeMod.bmLeftCtrl != afterMod.bmLeftCtrl)
+  if( beforeMod.bmLeftCtrl != afterMod.bmLeftCtrl )
   {
     Serial.println("LeftCtrl changed");
   }
-  if (beforeMod.bmLeftShift != afterMod.bmLeftShift)
+  if( beforeMod.bmLeftShift != afterMod.bmLeftShift )
   {
     Serial.println("LeftShift changed");
   }
-  if (beforeMod.bmLeftAlt != afterMod.bmLeftAlt)
+  if( beforeMod.bmLeftAlt != afterMod.bmLeftAlt )
   {
     Serial.println("LeftAlt changed");
   }
-  if (beforeMod.bmLeftGUI != afterMod.bmLeftGUI)
+  if( beforeMod.bmLeftGUI != afterMod.bmLeftGUI )
   {
     Serial.println("LeftGUI changed");
   }
 
-  if (beforeMod.bmRightCtrl != afterMod.bmRightCtrl)
+  if( beforeMod.bmRightCtrl != afterMod.bmRightCtrl )
   {
     Serial.println("RightCtrl changed");
   }
-  if (beforeMod.bmRightShift != afterMod.bmRightShift)
+  if( beforeMod.bmRightShift != afterMod.bmRightShift )
   {
     Serial.println("RightShift changed");
   }
-  if (beforeMod.bmRightAlt != afterMod.bmRightAlt)
+  if( beforeMod.bmRightAlt != afterMod.bmRightAlt )
   {
     Serial.println("RightAlt changed");
   }
-  if (beforeMod.bmRightGUI != afterMod.bmRightGUI)
+  if( beforeMod.bmRightGUI != afterMod.bmRightGUI )
   {
     Serial.println("RightGUI changed");
   }

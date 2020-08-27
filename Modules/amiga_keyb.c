@@ -149,12 +149,12 @@ void amikbd_update()
       amikbd_transfer( AMI_KBDCODE_LOSTSYNC );
       prevsync = 2;
     }
-    else if (prevsync == 2)
+    else if( prevsync == 2 )
     {
       amikbd_transfer( lastcmd );
       prevsync = 0;
     }
-    else if (head != tail)
+    else if( head != tail )
     {
       lastcmd = buf[head];
       head = (head+1) % BUFSIZE;
