@@ -22,6 +22,7 @@ out of the specification, so a level shifter is highly recommended.)
 The code is setup in a modular way, so compiling a version with a different
 focus is rather easy. As a result, "big box" Amigas now also supported.
 
+------------------------------------------------------------------------------
 
 Code Variants
 -------------
@@ -53,6 +54,7 @@ A3000  | untested     | untested | tested by "ottifant011" from A1K.org
 A4000  | untested     | untested | no system available for testing
 A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
+------------------------------------------------------------------------------
 
 FlashFloppy Support
 -------------------
@@ -88,6 +90,7 @@ stand up, I've added a cable to the two pushbuttons which is connected to
 my USB2Amiga/CDTV. Now I'm able to "press" those buttons remotely using the
 keyboard without the need to stand up.
 
+------------------------------------------------------------------------------
 
 FAQ
 ---
@@ -105,9 +108,9 @@ FAQ
   Host Shield library, or maybe it's my cheap USB host shield clone.
 
 * Can I send any CDTV specific codes via keyboard? \
-  This is possible also only one keystroke is implemented: the power button.
-  This way you can turn the machine one, if it is powered by the 4-pin mini
-  DIN connector. Others can be implemented as well, just ask.
+  This is possible. Right now, only one keystroke is implemented: the power
+  button. This way you can turn the machine on, if it is powered by the
+  4-pin mini DIN connector. Others can be implemented as well, just ask.
 
 * Do I have to install the Arduino IDE just for flashing? \
   No, precompiled hex-files ready for flashing are included in the directory
@@ -125,6 +128,7 @@ FAQ
   solution is described
   [here](https://github.community/t/git-bash-symbolic-links-on-windows/522/4).
 
+------------------------------------------------------------------------------
 
 Building
 --------
@@ -155,6 +159,7 @@ Only needed when modifying code, precompiled versions are available in the
   (most probable available as part of your Linux-Distro)
 - [USB Host Shield Library 2.0](https://github.com/felis/USB_Host_Shield_2.0)
 
+------------------------------------------------------------------------------
 
 Acknowledgements
 ----------------
