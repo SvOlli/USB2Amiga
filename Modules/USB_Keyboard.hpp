@@ -37,4 +37,4 @@ private:
 };
 extern KbdRptParser KbdPrs;
 
-#endif
+#endif /* __USB_KEYBOARD_HPP__ */

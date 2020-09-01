@@ -32,4 +32,4 @@ void amiga_handle_flashfloppy( uint8_t mod, uint8_t key, bool press );
 }
 #endif
 
-#endif
+#endif /* __AMIGA_API_H__ */

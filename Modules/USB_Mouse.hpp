@@ -32,4 +32,4 @@ private:
 };
 extern MouseRptParser MousePrs;
 
-#endif
+#endif /* __USB_MOUSE_HPP__ */

@@ -61,4 +61,4 @@ void set_cdtv_code( uint16_t code );
 }
 #endif
 
-#endif // _CDTV_
+#endif /* __CDTV_H__ */

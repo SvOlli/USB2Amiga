@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+#include "amiga_api.h"
+
 void db9_mouse_init();
 void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y );
 
@@ -19,4 +21,4 @@ void amiga_mouse_update( uint8_t buttons, int8_t x, int8_t y );
 }
 #endif
 
-#endif
+#endif /* __AMIGA_MOUSE_H__ */

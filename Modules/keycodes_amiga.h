@@ -19,4 +19,4 @@ extern "C" {
 }
 #endif
 
-#endif
+#endif /* __KEYCODES_AMIGA_H__ */
