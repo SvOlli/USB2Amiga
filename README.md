@@ -49,8 +49,8 @@ A500   | untested     | untested | reset handling differs
 A600   | *won't work* | untested | keyboard connected without controller
 A1000  | untested     | untested | no system available for testing
 A1200  | *won't work* | untested | keyboard connected without controller
-A2000  | untested     | untested | soon to come
-A3000  | untested     | untested | tested by "ottifant011" from A1K.org
+A2000  | working      | working  | hardware available
+A3000  | working      | working  | tested by "ottifant011" from A1K.org
 A4000  | untested     | untested | no system available for testing
 A4000T | working      | working  | tested by "ottifant011" from A1K.org
 
@@ -75,7 +75,7 @@ themselves. Obviously, then you shoudn't touch the "rotaty" parameter
 mentioned above.
 
 Version | GPIOs used
---------|-----------------------------------------
+--------|------------------------------------------
 CDTV_FF | 4 & 5
 DB9_FF  | A2 & A3
 A500_FF | A4 & A5 (inside the board, if available)
@@ -127,6 +127,12 @@ FAQ
   similar codebase. I had to cope with a bad IDE and a bad OS. A possbile
   solution is described
   [here](https://github.community/t/git-bash-symbolic-links-on-windows/522/4).
+
+* Why doesn't pressing both mouse buttons bring on the menu on Kickstart 2+? \
+  The microcontroller needs more time to start up and run USB detection than
+  it takes for the Amiga to boot and check for the mouse buttons. Doing a
+  keyboard reset (Ctrl-Win/Amiga-Win/Amiga or Ctrl-Alt-Delete) and then
+  pressing both buttons will do the trick.
 
 ------------------------------------------------------------------------------
 

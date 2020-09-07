@@ -22,12 +22,12 @@ Pin | Function | Amiga
  11 | PB3/MOSI | USB host shield (2)
  12 | PB4/MISO | USB host shield (2)
  13 | PB5/SCK  | USB host shield (2) / LED
- 14 | PC0/A0   | input joystick DB9 (1) / mouse DB9 pin 9: RB (2)
- 15 | PC1/A1   | input joystick DB9 (1) / mouse DB9 pin 5: MB (1)
- 16 | PC2/A2   | input joystick DB9 (1)
- 17 | PC3/A3   | input joystick DB9 (1)
- 18 | PC4/A4   | input joystick DB9 (1)
- 19 | PC5/A5   | input joystick DB9 (1)
+ 14 | PC0/A0   | input joystick DB9 (2) / mouse DB9 pin 9: RB (2)
+ 15 | PC1/A1   | input joystick DB9 (2) / mouse DB9 pin 5: MB (1)
+ 16 | PC2/A2   | input joystick DB9 (2)
+ 17 | PC3/A3   | input joystick DB9 (2)
+ 18 | PC4/A4   | input joystick DB9 (2)
+ 19 | PC5/A5   | input joystick DB9 (2)
  20 | ADC6/A6  |
  21 | ADC7/A7  | 
 
