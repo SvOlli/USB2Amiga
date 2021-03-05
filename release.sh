@@ -22,9 +22,11 @@ cat <<EOF
 
 All done!
 
-now run:
+now running:
+git add hex/
 git commit --amend
 
 EOF
 
 git add -v hex/
+EDITOR=true git commit --amend
