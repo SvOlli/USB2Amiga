@@ -109,8 +109,9 @@ FAQ
 
 * Can I send any CDTV specific codes via keyboard? \
   This is possible. Right now, only one keystroke is implemented: the power
-  button. This way you can turn the machine on, if it is powered by the
-  4-pin mini DIN connector. Others can be implemented as well, just ask.
+  button (PrtSc/SysRq). This way you can turn the machine on, if it is
+  powered by the 4-pin mini DIN connector. Others can be implemented as well,
+  just ask.
 
 * Do I have to install the Arduino IDE just for flashing? \
   No, precompiled hex-files ready for flashing are included in the directory
@@ -119,20 +120,27 @@ FAQ
   a hex-file as a standalone application. "Duemilanove/Nano(ATmega328)"
   worked for me as the device to upload to. Linux users need the command
   line tool "avrdude" and the search engine of your choice to figure out
-  the commandline parameters for the ATmega328 microcontroller used.
+  the commandline parameters for the ATmega328p microcontroller used. There
+  also is a script called "myflash.sh" in this directory that _might_ work
+  with your environment as well, but to be honest it's just a quick hack I
+  did for my setup.
 
 * Why can't I compile the project with the Arduino IDE on Windows? \
   The git client you're using is not configured to be using symbolic links.
   I'm using symlinks as a hack to build different variants with an almost
-  similar codebase. I had to cope with a bad IDE and a bad OS. A possbile
-  solution is described
+  similar codebase. Coping with a bad IDE and a bad OS, this was the best
+  setup I could come up with. A possible solution is described
   [here](https://github.community/t/git-bash-symbolic-links-on-windows/522/4).
 
 * Why doesn't pressing both mouse buttons bring on the menu on Kickstart 2+? \
   The microcontroller needs more time to start up and run USB detection than
   it takes for the Amiga to boot and check for the mouse buttons. Doing a
   keyboard reset (Ctrl-Win/Amiga-Win/Amiga or Ctrl-Alt-Delete) and then
-  pressing both buttons will do the trick.
+  pressing both buttons will do the trick. Also to shorten the startup time,
+  it should be possible to flash this firmware without a bootloader using an
+  [ICSP programmer](https://en.wikipedia.org/wiki/In-system_programming).
+  But this only seems to be possible with the USB host shield disconnected,
+  so this probably would mean: no updating.
 
 ------------------------------------------------------------------------------
 
