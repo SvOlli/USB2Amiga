@@ -1,39 +1,75 @@
 Arduino Pro Mini Pins Usage
 ===========================
 
-This file will be removed, once the build instructions for all different
-versions are completed.
+The tables try to resemble the layout of the board with the programming
+pins on top.
 
-Note: pins 18-21 (A4-A7) are not on the sides, but inside of the board.
 
-Pin | Function | Amiga
-----|----------|--------------------------------------------------
-  0 | PD0/TX   | serial interface for debug (2)
-  1 | PD1/RX   | serial interface for debug (2)
-  2 | PD2/INT0 | KBCLK (2)
-  3 | PD3/INT1 | KBDAT (2)
-  4 | PD4      | mouse DB9 pin 1: Y2 (2) / A500 reset (3)
-  5 | PD5      | mouse DB9 pin 2: X1 (2)
-  6 | PD6      | mouse DB9 pin 3: Y1 (2) / CDTV-PRDT (2)
-  7 | PD7      | mouse DB9 pin 4: X2 (2)
-  8 | PB0      | mouse DB9 pin 6: LB (2)
-  9 | PB1/INTR | USB host shield (2)
- 10 | PB2/SS   | USB host shield (2)
- 11 | PB3/MOSI | USB host shield (2)
- 12 | PB4/MISO | USB host shield (2)
- 13 | PB5/SCK  | USB host shield (2) / LED
- 14 | PC0/A0   | input joystick DB9 (2) / mouse DB9 pin 9: RB (2)
- 15 | PC1/A1   | input joystick DB9 (2) / mouse DB9 pin 5: MB (1)
- 16 | PC2/A2   | input joystick DB9 (2)
- 17 | PC3/A3   | input joystick DB9 (2)
- 18 | PC4/A4   | input joystick DB9 (2)
- 19 | PC5/A5   | input joystick DB9 (2)
- 20 | ADC6/A6  |
- 21 | ADC7/A7  | 
+CDTV
+----
+|       Function | Pin | | Pin | Function              |
+|---------------:|:----|-|----:|:----------------------|
+|      Serial TX |   0 | | Vin | Power (+5V)           |
+|      Serial RX |   1 | | GND | Ground                |
+| Reset (unused) | RST | | RST | Reset (unused)        |
+|         Ground | GND | | VCC | +3.3V (not connected) |
+|         KB_CLK |   2 | | A3  | joystick input right  |
+|         KB_DAT |   3 | | A2  | joystick input left   |
+|      (FF next) |   4 | | A1  | joystick input down   |
+|      (FF prev) |   5 | | A0  | joystick input up     |
+|      CDTV_PRDT |   6 | | 13  | USB host SCK          |
+|                |   7 | | 12  | USB host MISO         |
+|                |   8 | | 11  | USB host MOSI         |
+|  USB host INTR |   9 | | 10  | USB host SS           |
 
-- (1) = currently implemented
-- (2) = currently implemented and tested
-- (3) = currently implemented, also moves all other pins,
-        see [A500 build instructions](Build_A500.md) for details
+Pins inside the board:
 
-Note: not all combinations are available in all versions
+| Pin | Function                |
+|----:|:------------------------|
+|  A4 | joystick input button A |
+|  A5 | joystick input button B |
+
+Note: pins A4/A5 will be moved to 7/8 soon.
+
+
+DB9 ("Big Box" Amigas)
+----------------------
+|         Function | Pin | | Pin | Function              |
+|-----------------:|:----|-|----:|:----------------------|
+|        Serial TX |   0 | | Vin | Power (+5V)           |
+|        Serial RX |   1 | | GND | Ground                |
+|   Reset (unused) | RST | | RST | Reset (unused)        |
+|           Ground | GND | | VCC | +3.3V (not connected) |
+|           KB_CLK |   2 | | A3  | (FF prev)             |
+|           KB_DAT |   3 | | A2  | (FF next)             |
+| Mouse Y2 (DB9-1) |   4 | | A1  | Mouse MB (DB9-5)      |
+| Mouse X1 (DB9-2) |   5 | | A0  | Mouse RB (DB9-9)      |
+| Mouse Y1 (DB9-3) |   6 | | 13  | USB host SCK          |
+| Mouse X2 (DB9-4) |   7 | | 12  | USB host MISO         |
+| Mouse LB (DB9-6) |   8 | | 11  | USB host MOSI         |
+|    USB host INTR |   9 | | 10  | USB host SS           |
+
+
+Amiga 500
+---------
+|         Function | Pin | | Pin | Function              |
+|-----------------:|:----|-|----:|:----------------------|
+|        Serial TX |   0 | | Vin | Power (+5V)           |
+|        Serial RX |   1 | | GND | Ground                |
+|   Reset (unused) | RST | | RST | Reset (unused)        |
+|           Ground | GND | | VCC | +3.3V (not connected) |
+|           KB_CLK |   2 | | A3  |                       |
+|           KB_DAT |   3 | | A2  | Mouse MB (DB9-5)      |
+|         KB_RESET |   4 | | A1  | Mouse RB (DB9-9)      |
+| Mouse Y2 (DB9-1) |   5 | | A0  | Mouse LB (DB9-6)      |
+| Mouse X1 (DB9-2) |   6 | | 13  | USB host SCK          |
+| Mouse Y1 (DB9-3) |   7 | | 12  | USB host MISO         |
+| Mouse X2 (DB9-4) |   8 | | 11  | USB host MOSI         |
+|    USB host INTR |   9 | | 10  | USB host SS           |
+
+Pins inside the board:
+
+| Pin | Function  |
+|----:|:----------|
+|  A4 | (FF next) |
+|  A5 | (FF prev) |

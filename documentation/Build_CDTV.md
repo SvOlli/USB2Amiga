@@ -9,17 +9,17 @@ Pins On Arduino
 ---------------
 
 Pin | Signal    | Note
-----|-----------|------------------------------------------------
+----|-----------|-------------------------------------
  2  | KBCLK     |
  3  | KBDAT     | may not be changed
  6  | PRDT      |
- A0 | DB9 Pin 4 | optional joystick to CDTV interface (untested)
- A1 | DB9 Pin 3 | optional joystick to CDTV interface (untested)
- A2 | DB9 Pin 2 | optional joystick to CDTV interface (untested)
- A3 | DB9 Pin 1 | optional joystick to CDTV interface (untested)
- A4 | DB9 Pin 9 | optional joystick to CDTV interface (untested)
- A5 | DB9 Pin 6 | optional joystick to CDTV interface (untested)
-GND | DB9 Pin 8 | optional joystick to CDTV interface (untested)
+ A0 | DB9 Pin 4 | optional joystick to CDTV interface
+ A1 | DB9 Pin 3 | optional joystick to CDTV interface
+ A2 | DB9 Pin 2 | optional joystick to CDTV interface
+ A3 | DB9 Pin 1 | optional joystick to CDTV interface
+ A4 | DB9 Pin 9 | optional joystick to CDTV interface
+ A5 | DB9 Pin 6 | optional joystick to CDTV interface
+GND | DB9 Pin 8 | optional joystick to CDTV interface
 
 
 [(Is the mentioned level shifter necessary?)](LevelShifter.md)
@@ -33,9 +33,9 @@ work properly.
 
 Also connect +5V from only one of the ports to RAW on the Arduino Pro Mini
 and HV on the level shifter. The +5V from the 5-pin connector (labeled "K/B")
-is switched off when the unit goes to standby, the +5 from the 4-pin connector
-(labeled "Remote") is always on. So don't short these two. LV of the level
-shifter is connected to 3.3V (VCC) on the Arduino.
+is switched off when the unit goes to standby, the +5V from the 4-pin
+connector (labeled "Remote") is always on. **So don't short these two.** LV
+of the level shifter is connected to 3.3V (VCC) on the Arduino.
 
 GND should be connected to both CDTV ports, GND on both sides of the level
 shifter and GND on the Arduino. This way the converter works also when only

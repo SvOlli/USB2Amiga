@@ -153,9 +153,11 @@ Building
 - [Arduino Pro Mini 328 3.3V / 8Mhz](https://www.adafruit.com/product/2377)
   (again, I bought cheap chinese knockoffs;
    be sure **NOT** to take 5V or 168 models)
+- pin headers to connect these two (they usually come with the Arduino)
 - a programmer / serial interface working with the pro mini
 - matching connectors (DB9 female for mouse, DIN-5 180° for A2/3000 keyboard,
   mini-DIN-6 for A4000 or CD32, mini-DIN-4 and mini-DIN-5 for CDTV, etc.)
+- level-shifter [(optional)](documentation/LevelShifter.md)
 
 ### Instructions For Specific Hardware
 - [Commodore CDTV](documentation/Build_CDTV.md)
