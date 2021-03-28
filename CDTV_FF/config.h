@@ -24,8 +24,8 @@
 #define PIN_CDTV_JOY_DOWN  A1    /* DB9 pin 2 */
 #define PIN_CDTV_JOY_LEFT  A2    /* DB9 pin 3 */
 #define PIN_CDTV_JOY_RIGHT A3    /* DB9 pin 4 */
-#define PIN_CDTV_JOY_A     A4    /* DB9 pin 6 */
-#define PIN_CDTV_JOY_B     A5    /* DB9 pin 9 */
+#define PIN_CDTV_JOY_A     (7)   /* DB9 pin 6 */
+#define PIN_CDTV_JOY_B     (8)   /* DB9 pin 9 */
 
 /* pin configuration for controlling flashfloppy */
 #define PIN_FF_NEXT  (4)

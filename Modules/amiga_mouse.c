@@ -71,14 +71,6 @@ void outputY()
 
 void db9_mouse_init()
 {
-#if 0
-  // Disable the watchdog timer (if set in fuses)
-  MCUSR &= ~(1 << WDRF);
-  wdt_disable();
-  // Disable the clock divider (if set in fuses)
-  clock_prescale_set(clock_div_1);
-#endif
-
   outputX();
   outputY();
   weak_pullup( PIN_DB9_LB );
