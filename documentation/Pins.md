@@ -2,34 +2,28 @@ Arduino Pro Mini Pins Usage
 ===========================
 
 The tables try to resemble the layout of the board with the programming
-pins on top.
+pins on top. General note: "Serial TX" and "Serial RX" are required to
+program new firmware to the board. It's also used for outputting debug
+information. Even when not used, it seems like it's still initialized,
+so it's recommended to keep hand of those pins.
 
 
 CDTV
 ----
-|       Function | Pin |   | Pin | Function              |
-|---------------:|:----|---|----:|:----------------------|
-|      Serial TX |   0 |   | Vin | Power (+5V)           |
-|      Serial RX |   1 |   | GND | Ground                |
-| Reset (unused) | RST |   | RST | Reset (unused)        |
-|         Ground | GND |   | VCC | +3.3V (not connected) |
-|         KB_CLK |   2 |   | A3  | joystick input right  |
-|         KB_DAT |   3 |   | A2  | joystick input left   |
-|      (FF next) |   4 |   | A1  | joystick input down   |
-|      (FF prev) |   5 |   | A0  | joystick input up     |
-|      CDTV_PRDT |   6 |   | 13  | USB host SCK          |
-|                |   7 |   | 12  | USB host MISO         |
-|                |   8 |   | 11  | USB host MOSI         |
-|  USB host INTR |   9 |   | 10  | USB host SS           |
-
-Pins inside the board:
-
-| Pin | Function                |
-|----:|:------------------------|
-|  A4 | joystick input button A |
-|  A5 | joystick input button B |
-
-Note: pins A4/A5 will be moved to 7/8 soon.
+|                Function | Pin |   | Pin | Function              |
+|------------------------:|:----|---|----:|:----------------------|
+|               Serial TX |   0 |   | Vin | Power (+5V)           |
+|               Serial RX |   1 |   | GND | Ground                |
+|          Reset (unused) | RST |   | RST | Reset (unused)        |
+|                  Ground | GND |   | VCC | +3.3V (not connected) |
+|                  KB_CLK |   2 |   | A3  | joystick input right  |
+|                  KB_DAT |   3 |   | A2  | joystick input left   |
+|               (FF next) |   4 |   | A1  | joystick input down   |
+|               (FF prev) |   5 |   | A0  | joystick input up     |
+|               CDTV_PRDT |   6 |   | 13  | USB host SCK          |
+| joystick input button A |   7 |   | 12  | USB host MISO         |
+| joystick input button B |   8 |   | 11  | USB host MOSI         |
+|           USB host INTR |   9 |   | 10  | USB host SS           |
 
 
 DB9 ("Big Box" Amigas)

@@ -3,14 +3,8 @@
 DEVICE="/dev/ttyUSB0"
 HEXFILE=""
 
-for i; do
-case "${i}" in
-/dev/*) DEVICE="${i}" ;;
-*) HEXFILE="${i}" ;;
-esac
-done
-
-if [ -z "${HEXFILE}" -o ! -f "${HEXFILE}" ]; then
+usage()
+{
    cat <<EOF
 usage: $0 (<device>) <hexfile>
 
@@ -22,7 +16,27 @@ The following configuration is assumed:
 
 (This script is called "myflash.sh" because it might not work for you!)
 EOF
-exit 1
+}
+
+for i; do
+case "${i}" in
+/dev/*) DEVICE="${i}" ;;
+*) if [ -n "${HEXFILE}" ]; then usage; exit 1; else HEXFILE="${i}"; fi ;;
+esac
+done
+
+if [ -z "${HEXFILE}" -o ! -f "${HEXFILE}" ]; then
+   usage
+   if [ -n "${HEXFILE}" ]; then
+      echo "ERROR: hexfile '${HEXFILE}' does not exist"
+   fi
+   exit 1
+fi
+
+if [ ! -c "${DEVICE}" ]; then
+   usage
+   echo "ERROR: device '${DEVICE}' does not exist or is not a character device"
+   exit 1
 fi
 
 exec avrdude -v -patmega328p -carduino -P"${DEVICE}" -b57600 -D -Uflash:w:"${HEXFILE}":i

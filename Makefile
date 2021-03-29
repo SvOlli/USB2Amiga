@@ -14,7 +14,7 @@ clean:
 
 release:
 	$(MAKE) clean
-	$(MAKE) all CFLAGS+=-DDEBUG=0 CXXFLAGS+=-DDEBUG=0
+	$(MAKE) all
 	@$(LS) tmp/*/*.hex
 
 $(USB2AMIGA_VARIANTS):

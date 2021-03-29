@@ -80,8 +80,8 @@ CDTV_FF | 4 & 5
 DB9_FF  | A2 & A3
 A500_FF | A4 & A5 (inside the board, if available)
 
-Note: these GPIOs must not be routed through a level shifter, as the Gotek is
-running on 3.3V.
+Note: these GPIOs *must not* be routed through a level shifter, as the Gotek
+is running on 3.3V.
 
 Disclaimer: This code that will be useful only in corner cases. It has been
 implemented for this reason only: with my CDTV I've got an external Gotek with
@@ -141,6 +141,12 @@ FAQ
   [ICSP programmer](https://en.wikipedia.org/wiki/In-system_programming).
   But this only seems to be possible with the USB host shield disconnected,
   so this probably would mean: no updating.
+
+* Can I bind multimedia keys to special functions? \
+  No, sorry. The API provided by the USB host shield does not recognize
+  these keys. It looks like the protocol used - USB HID boot - does not
+  support multimedia keys. So only switching to a different protocol forcing
+  a full rewrite of the library might make this possible.
 
 ------------------------------------------------------------------------------
 
